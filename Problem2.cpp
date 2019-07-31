@@ -1,0 +1,101 @@
+//
+// Created by shazm on 7/31/2019.
+//
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <set>
+#include <queue>
+#include <tuple>
+
+using namespace std;
+
+struct Oranges{
+    int i;
+    int j;
+};
+
+bool operator<(const Oranges& lhs, const Oranges& rhs)
+{
+    return std::tie(lhs.i, lhs.j) < std::tie(rhs.i, rhs.j);
+}
+
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int res = 0;
+        queue<Oranges> que;
+        set<Oranges> visited;
+        for(int i = 0; i<grid.size(); i++){
+            for(int j = 0; j<grid[0].size(); j++){
+                if(grid[i][j]==2){
+                    Oranges ora{i,j};
+                    que.push(ora);
+                    visited.insert(ora);
+                }
+            }
+        }
+        Oranges orange; int size; int it = 0;
+        while(!que.empty()){
+            size = que.size();
+            for(int x = 0; x<size; x++){
+                orange = que.front();
+                if(validate(orange.i,orange.j+1,grid)){
+                    Oranges ora1{orange.i,orange.j+1};
+                    if(grid[ora1.i][ora1.j]==1 && visited.insert(ora1).second){
+                        que.push(ora1);
+                        grid[ora1.i][ora1.j] = 2;
+                    }
+                }
+                if(validate(orange.i,orange.j-1,grid)){
+                    Oranges ora1{orange.i,orange.j-1};
+                    if(grid[ora1.i][ora1.j]==1 && visited.insert(ora1).second){
+                        que.push(ora1);
+                        grid[ora1.i][ora1.j] = 2;
+                    }
+                }
+                if(validate(orange.i+1,orange.j,grid)){
+                    Oranges ora1{orange.i+1,orange.j};
+                    if(grid[ora1.i][ora1.j]==1 && visited.insert(ora1).second){
+                        que.push(ora1);
+                        grid[ora1.i][ora1.j] = 2;
+                    }
+                }
+                if(validate(orange.i-1,orange.j,grid)){
+                    Oranges ora1{orange.i-1,orange.j};
+                    if(grid[ora1.i][ora1.j]==1 && visited.insert(ora1).second){
+                        que.push(ora1);
+                        grid[ora1.i][ora1.j] = 2;
+                    }
+                }
+                que.pop();
+            }
+            if(it>0){res++;}
+            it++;
+        }
+        for(int i = 0; i<grid.size(); i++){
+            for(int j = 0; j<grid[0].size(); j++){
+                if(grid[i][j]==1){
+                    return -1;
+                }
+            }
+        }
+        return res;
+    }
+private:
+    bool validate(int i, int j, vector<vector<int>>& grid){
+        if(i>=0 && i<grid.size() && j<grid[0].size() && j>=0){
+            return true;
+        }
+        return false;
+    }
+};
+
+int main(){
+    Solution s;
+    vector<vector<int>> vec{{2,1,1},{0,1,1},{1,0,1}};
+    s.orangesRotting(vec);
+    return 0;
+}
