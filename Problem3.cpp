@@ -6,6 +6,10 @@
 #include <algorithm>
 #include <vector>
 
+// Runtime: O(n)
+// Space: O(n)
+// Approach: Use BFS to add elements. If even level, add to begining of the vector to be inserted. else add regularly.
+
 using namespace std;
 
 struct TreeNode{

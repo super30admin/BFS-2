@@ -6,6 +6,12 @@
 #include <algorithm>
 #include <vector>
 
+// Runtime: O(n)
+// Space: O(n)
+// Approach: Use BFS to add elements to the queue. If any element is equal to x or y, save it's parent node. and keep note
+// of the value checked. Then go through the stack if the other value not found in the same level with different parent,
+// return false. Repeat till queue is empty.
+
 using namespace std;
 
 struct TreeNode{

@@ -9,6 +9,13 @@
 #include <queue>
 #include <tuple>
 
+// Runtime: O(n)
+// Space: O(n)
+// Approach: 1) Use a queue to save all the rotten oranges in the beginning. and add to the visited set.
+// 2) check the 4-directions of the top element of the queue for fresh oranges.
+// 3) if any orange in those directions is not rotten and not visited, add to visited set, push to queue, and mark rotten.
+// 4) pop element from queue and repeat 1,2,3, and 4 till queue is empty.
+
 using namespace std;
 
 struct Oranges{
