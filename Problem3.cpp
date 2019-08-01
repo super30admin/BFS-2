@@ -26,7 +26,6 @@ public:
         if(root==NULL){return retVec;}
         queue<TreeNode*> que;
         que.push(root);
-        int i = 0;
         TreeNode* node; int size;
         while(!que.empty()){
             vector<int> vec;
@@ -46,10 +45,10 @@ public:
                 }
                 que.pop();
             }
-            if(i%2!=0){
+            if(retVec.size()%2!=0){
                 reverse(vec.begin(),vec.end());
             }
-            i++; retVec.push_back(vec);
+            retVec.push_back(vec);
         }
         return retVec;
     }
