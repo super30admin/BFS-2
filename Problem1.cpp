@@ -35,10 +35,12 @@ public:
                 node = get<0>(que.front());
                 if(node->val == i){
                     if(checky == true && checkNode != get<1>(que.front())){return true;}
+                    else if(checky == true && checkNode == get<1>(que.front())){return false;} //added to make code faster.
                     checkx = true;
                     checkNode = get<1>(que.front());
                 }else if(node->val == y){
                     if(checkx == true && checkNode != get<1>(que.front())){return true;}
+                    else if(checkx == true && checkNode == get<1>(que.front())){return false;} //added to make code faster.
                     checky = true;
                     checkNode = get<1>(que.front());
                 }
