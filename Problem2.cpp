@@ -32,19 +32,24 @@ bool operator<(const Oranges& lhs, const Oranges& rhs)
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        int res = 0;
+        int res = -1; int fresh = 0;
         queue<Oranges> que;
         set<Oranges> visited;
         for(int i = 0; i<grid.size(); i++){
             for(int j = 0; j<grid[0].size(); j++){
-                if(grid[i][j]==2){
-                    Oranges ora{i,j};
+                if(grid[i][j]==2) {
+                    Oranges ora{i, j};
                     que.push(ora);
                     visited.insert(ora);
+                }else if(grid[i][j]==1){
+                    fresh+=1;
                 }
             }
         }
-        Oranges orange; int size; int it = 0;
+        if(fresh==0){
+            return 0;
+        }
+        Oranges orange; int size;
         while(!que.empty()){
             size = que.size();
             for(int x = 0; x<size; x++){
@@ -52,43 +57,43 @@ public:
                 if(validate(orange.i,orange.j+1,grid)){
                     Oranges ora1{orange.i,orange.j+1};
                     if(grid[ora1.i][ora1.j]==1 && visited.insert(ora1).second){
-                        que.push(ora1);
-                        grid[ora1.i][ora1.j] = 2;
+                        que.push(ora1); fresh--;
+//                        grid[ora1.i][ora1.j] = 2;
                     }
                 }
                 if(validate(orange.i,orange.j-1,grid)){
                     Oranges ora1{orange.i,orange.j-1};
                     if(grid[ora1.i][ora1.j]==1 && visited.insert(ora1).second){
-                        que.push(ora1);
-                        grid[ora1.i][ora1.j] = 2;
+                        que.push(ora1); fresh--;
+//                        grid[ora1.i][ora1.j] = 2;
                     }
                 }
                 if(validate(orange.i+1,orange.j,grid)){
                     Oranges ora1{orange.i+1,orange.j};
                     if(grid[ora1.i][ora1.j]==1 && visited.insert(ora1).second){
-                        que.push(ora1);
-                        grid[ora1.i][ora1.j] = 2;
+                        que.push(ora1); fresh--;
+//                        grid[ora1.i][ora1.j] = 2;
                     }
                 }
                 if(validate(orange.i-1,orange.j,grid)){
                     Oranges ora1{orange.i-1,orange.j};
                     if(grid[ora1.i][ora1.j]==1 && visited.insert(ora1).second){
-                        que.push(ora1);
-                        grid[ora1.i][ora1.j] = 2;
+                        que.push(ora1); fresh--;
+//                        grid[ora1.i][ora1.j] = 2;
                     }
                 }
                 que.pop();
             }
-            if(it>0){res++;}
-            it++;
+            res++;
         }
-        for(int i = 0; i<grid.size(); i++){  // You can avoid this by having a one counter in previous 2 pass. and compare with number of times 1 has come across in while loop. Saves time.
-            for(int j = 0; j<grid[0].size(); j++){
-                if(grid[i][j]==1){
-                    return -1;
-                }
-            }
-        }
+        if(fresh>0){return -1;}
+//        for(int i = 0; i<grid.size(); i++){  // You can avoid this by having a one counter in previous 2 pass. and compare with number of times 1 has come across in while loop. Saves time.
+//            for(int j = 0; j<grid[0].size(); j++){
+//                if(grid[i][j]==1){
+//                    return -1;
+//                }
+//            }
+//        }
         return res;
     }
 private:
