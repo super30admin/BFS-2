@@ -33,11 +33,11 @@ public:
             size = que.size();
             for(int x = 0; x<size; x++){
                 node = que.front();
-                if(vec.empty() || i%2==0){
-                    vec.push_back(node->val);
-                }else{
-                    vec.insert(vec.begin(),node->val);
-                }
+//                if(vec.empty() || i%2==0){  // Removed cause I liked Raman's idea..
+                vec.push_back(node->val);
+//                }else{
+//                    vec.insert(vec.begin(),node->val);
+//                }
                 if(node->left!=NULL){
                     que.push(node->left);
                 }
@@ -45,6 +45,9 @@ public:
                     que.push(node->right);
                 }
                 que.pop();
+            }
+            if(i%2!=0){
+                reverse(vec.begin(),vec.end());
             }
             i++; retVec.push_back(vec);
         }
