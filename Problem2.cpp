@@ -82,7 +82,7 @@ public:
             if(it>0){res++;}
             it++;
         }
-        for(int i = 0; i<grid.size(); i++){
+        for(int i = 0; i<grid.size(); i++){  // You can avoid this by having a one counter in previous 2 pass. and compare with number of times 1 has come across in while loop. Saves time.
             for(int j = 0; j<grid[0].size(); j++){
                 if(grid[i][j]==1){
                     return -1;
