@@ -1,3 +1,6 @@
+//traversal through the array similar to ;evel order traversal except keeping a level count which reverses the string at odd levels
+//Time:O(n)
+//Space:O(n)
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
