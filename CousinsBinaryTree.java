@@ -1,3 +1,7 @@
+//At each level the depth is calculated
+//time:O(n)
+//space:stack space O(n)
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
