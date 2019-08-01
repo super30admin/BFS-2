@@ -1,4 +1,4 @@
-//At each level the depth is calculated
+//At each level the depth is calculated and checked if parents are equal or not
 //time:O(n)
 //space:stack space O(n)
 
