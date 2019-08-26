@@ -4,10 +4,10 @@ Space O(1) (queue will contain atmost 4 nodes and set will contain atmost 2 elem
 Leetcode yes
 problem no
 
-We do the normal bfs traversal. During traversal if any of the node matches x or y value, we add that nodes parent's value to 
+We do the normal bfs traversal. During traversal if any of the node matches x or y value, we add that node's parent's value to 
 hashset. When all the nodes of a level have been traversed, we check the size of hashset. If it is one, it means either 
-we found only one of x or y value at that level OR we found both x and y but they both had same parent, hence we return true.
-If set size is 2 , that means both we found both x and y at this level and they have different parent
+we found only one of x or y value at that level OR we found both x and y but they both had same parent, hence we return false.
+If set size is 2 , that means both we found both x and y at this level and they have different parent and we return true
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
