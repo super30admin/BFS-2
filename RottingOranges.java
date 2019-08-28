@@ -66,7 +66,7 @@ public class RottingOranges {
 			min++; //Increment minutes for every level
 		}
 		if(fresh != 0) return -1;
-		return min-1;
+		return min-1; //Last iteration simply checks if there are any more rotten oranges, so it can be negated
 	}
 
 }
