@@ -1,5 +1,5 @@
 # time cmplexity
-# leetcode: accepted
+# leetcode: Accepted
 # explaination: O(n)
 # 1.append the rotten mangoes in the queu
 # 2.check the four directions of the rotten mangoes in the queue and and make the fresh mangoes as rotten magoes and append them into the queue
