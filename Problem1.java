@@ -7,6 +7,12 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+/*Algorithm:
+    - Get the height of both x and y.
+    - Check whether x and y are having the same parent
+    - If heights of both x and y are equal and both do not have the same parent then return true else return false.
+*/
 class Solution {
     public boolean isCousins(TreeNode root, int x, int y) {
         if(root==null)

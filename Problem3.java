@@ -13,6 +13,7 @@ class Employee {
 
 
 /*Algorithm:
+
     - Add the employees into a HashMap and Map it with their respective id.
     - From the HashMap get the employee of whose id is passed while calling the function getImportance.
     - While queue is not empty poll the element from the queue, Add its importance do a BFS to add the employee's subordinates
