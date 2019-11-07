@@ -4,76 +4,76 @@ Time Complexity : O(N)
 Space Complexity : O(N) 
 Did this code successfully run on Leetcode : No 
 Any problem you faced while coding this: 
-    Having trouble determining how to end the loop
+    Not passing all test cases 
  */
 
 class Solution {
     public int orangesRotting(int[][] grid) {
-        Queue <Integer[]> q = new LinkedList<>();
-        Set <Integer[]> visited = new HashSet<>();
-        q.add(new Integer[]{0,0});
-        int result = - 1;
-        int count = 0;
+        Queue<Integer[]> q = new LinkedList<>();
+        // Find coordinates for rotting oranges
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[i].length; j++){
+                if(grid[i][j] == 2) {
+                    q.add(new Integer[]{i,j});                    
+                }
+            }
+        }
+        
+        int count = -1;
+        Set<Integer[]> visited = new HashSet<>();
+
         while(!q.isEmpty()){
-            System.out.println("Count: " + count);
-            printGrid(grid);
             int size = q.size();
-            for(int i = 0; i< size; i++){
+            count++;
+            for(int i = 0; i < size; i++){
                 Integer[] current = q.poll();
-                if(visited.contains(current)) continue;
                 visited.add(current);
                 int row = current[0];
                 int column = current[1];
-                boolean orangeRotten = grid[row][column] == 2;
-                count++;
-                //check left bound
-                if(column - 1 >= 0){
-                    Integer[] left = new Integer[]{row, column - 1};
-                    if(!visited.contains(left)){
-                        if(orangeRotten && grid[row][column - 1] != 0) grid[row][column - 1] = 2; 
-                        q.add(left);
-                    }
-                }
-                //check right bound
-                if(column + 1 < grid[row].length ){
-                    Integer[] right = new Integer[]{row, column + 1};
-                    if(!visited.contains(right)){
-                        if(orangeRotten && grid[row][column + 1] != 0) grid[row][column + 1] = 2; 
-                        q.add(right);
-                    }
-                    
-                }
+                grid[row][column] = 2;
                 
-               //check upper bound
-                if(row - 1 >= 0){
-                    Integer[] up = new Integer[]{row -1, column};
-                    if(!visited.contains(up)){
-                        if(orangeRotten && grid[row - 1][column] != 0) grid[row - 1][column] = 2;
-                        q.add(up);
-                    }
-                }
-                
-                //check lower bound
-                if(row + 1 < grid.length){
+                //Check down
+                if(validIndex(grid, row + 1, column)){
                     Integer[] down = new Integer[]{row + 1, column};
-                    if(orangeRotten &&  grid[row + 1][column] != 0) grid[row + 1][column] = 2;
-                    if(!visited.contains(down)){
-                        q.add(down);
-                    }
+                    if(!visited.contains(down) && grid[row + 1][column] == 1) q.add(down);
+                }
+                //Check up
+                if(validIndex(grid, row - 1, column)){
+                    Integer[] up = new Integer[]{row - 1, column};
+                    if(!visited.contains(up) && grid[row - 1][column] == 1) q.add(up);
+                }
+                
+                //Check left
+                if(validIndex(grid, row, column - 1)){
+                    Integer[] left = new Integer[]{row, column - 1};
+                    if(!visited.contains(left) && grid[row][column - 1] == 1) q.add(left);
+                }
+                //Check right
+                if(validIndex(grid, row, column + 1)){
+                    Integer[] right = new Integer[]{row, column + 1};
+                    if(!visited.contains(right) && grid[row][column + 1] == 1) q.add(right);
+                }
+            }
+        }
+        
+        // Check if there are any fresh oranges left;
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[i].length; j++){
+                if(grid[i][j] == 1) {
+                    return -1;
                 }
             }
         }
         
         return count;
+        
     }
-
-    public void printGrid(int[][] grid){
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid[i].length; j++){
-                System.out.print(grid[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("----------------");
+    
+    private boolean validIndex(int[][] grid, int row, int column){
+        if(row < 0 || row >= grid.length) return false;
+        if(column >= grid[row].length || column < 0) return false;
+        
+        return true;
     }
+    
 }
