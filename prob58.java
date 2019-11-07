@@ -1,27 +1,35 @@
+//Time complexity-O[N**2]
+//Space complexity-O[N]
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
-	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-		List<List<Integer>> result = new LinkedList<>();
-		if(root == null) return result;
-
-		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		queue.add(root);
-		int pos = 0;
-
-		while (!queue.isEmpty()) {
-			pos = pos == 0 ? 1 : 0;
-			int count = queue.size();
-			List<Integer> list = new LinkedList<>();
-			while (count-- > 0) {
-				TreeNode node = queue.poll();
-				if (node.left != null) queue.offer(node.left);
-				if (node.right != null) queue.offer(node.right);
-				if (pos == 0) list.add(0, node.val);
-				else list.add(node.val);
-			}
-
-			result.add(list);
-		}
-
-		return result;
-	}
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        if(root==null) return new ArrayList<List<Integer>>();
+        
+        List<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        boolean left=true;
+        while(!q.isEmpty()){
+            int size = q .size();
+            List<Integer> temp = new ArrayList<>();
+            for(int i=0;i<size;i++){
+                TreeNode node = q.poll();
+                temp.add(node.val);
+                if(node.left != null) q.add(node.left);
+                if(node.right != null) q.add(node.right);
+            }
+            if(!left)Collections.reverse(temp);
+            left = !left;
+            result.add(temp);
+        }
+        return result;
+    }
 }
