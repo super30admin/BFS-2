@@ -2,70 +2,64 @@
 Daily Problem #60
 Time Complexity : O(N)
 Space Complexity : O(N) 
-Did this code successfully run on Leetcode : No 
+Did this code successfully run on Leetcode : Yes 
 Any problem you faced while coding this: 
-    Not passing all test cases 
+    Was able to to solve once I learned logic for BFS on a grid from class 
  */
 
 class Solution {
     public int orangesRotting(int[][] grid) {
         Queue<Integer[]> q = new LinkedList<>();
+        int freshOranges = 0;
         // Find coordinates for rotting oranges
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[i].length; j++){
-                if(grid[i][j] == 2) {
-                    q.add(new Integer[]{i,j});                    
-                }
+                if(grid[i][j] == 2) q.add(new Integer[]{i,j}); 
+                else if(grid[i][j] == 1) freshOranges++;
             }
         }
-        
-        int count = -1;
-        Set<Integer[]> visited = new HashSet<>();
+        if(freshOranges == 0) return 0;
+        if(q.isEmpty()) return -1;
+        int count = 0;
 
         while(!q.isEmpty()){
             int size = q.size();
-            count++;
             for(int i = 0; i < size; i++){
                 Integer[] current = q.poll();
-                visited.add(current);
                 int row = current[0];
                 int column = current[1];
-                grid[row][column] = 2;
-                
+        
                 //Check down
-                if(validIndex(grid, row + 1, column)){
-                    Integer[] down = new Integer[]{row + 1, column};
-                    if(!visited.contains(down) && grid[row + 1][column] == 1) q.add(down);
+                if(validIndex(grid, row + 1, column) && grid[row + 1][column] == 1) {
+                    q.add(new Integer[]{row + 1, column});
+                    grid[row + 1][column] = 2;
+                    freshOranges--;
                 }
                 //Check up
-                if(validIndex(grid, row - 1, column)){
-                    Integer[] up = new Integer[]{row - 1, column};
-                    if(!visited.contains(up) && grid[row - 1][column] == 1) q.add(up);
+                if(validIndex(grid, row - 1, column) && grid[row - 1][column] == 1) {
+                    q.add(new Integer[]{row - 1, column});
+                    grid[row - 1][column] = 2;
+                    freshOranges--;
                 }
                 
                 //Check left
-                if(validIndex(grid, row, column - 1)){
-                    Integer[] left = new Integer[]{row, column - 1};
-                    if(!visited.contains(left) && grid[row][column - 1] == 1) q.add(left);
+                if(validIndex(grid, row, column - 1) && grid[row][column - 1] == 1){
+                    q.add(new Integer[]{row, column - 1});
+                    grid[row][column - 1] = 2;
+                    freshOranges--;
                 }
                 //Check right
-                if(validIndex(grid, row, column + 1)){
-                    Integer[] right = new Integer[]{row, column + 1};
-                    if(!visited.contains(right) && grid[row][column + 1] == 1) q.add(right);
+                if(validIndex(grid, row, column + 1) && grid[row][column + 1] == 1){
+                    q.add(new Integer[]{row, column + 1});
+                    grid[row][column + 1] = 2;
+                    freshOranges--;
                 }
             }
+            count++;
         }
         
-        // Check if there are any fresh oranges left;
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid[i].length; j++){
-                if(grid[i][j] == 1) {
-                    return -1;
-                }
-            }
-        }
-        
-        return count;
+        if(freshOranges > 0) return -1;
+        return count == 0 ? 0 : count - 1;
         
     }
     
