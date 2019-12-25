@@ -1,6 +1,6 @@
 /**
 LeetCode Submitted : YES
-Space Complexity : o(N+M)
+Space Complexity : o(N*M)
 Time Complexity : O(N*M)
 
 The idea is to store the rotten oranges in the Queue and then iterate in all possible 4 directions. Once each level is completed increase counter by counter. If the queue is empty and number of rotten oranges is not equal to total oranges then return -1 else return counter value.
