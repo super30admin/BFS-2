@@ -10,7 +10,7 @@
 
 /**
 LeetCode Submitted : YES
-Space Complexity : O(1)
+Space Complexity : O(N)
 Time Complexity : O(N)
 
 The idea is to use queue to do BFS to find nodes at the same level or depth and then check if they both have same parent or not. This can be done by recursively calculating parent or having a parent array.
