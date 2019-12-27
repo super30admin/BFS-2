@@ -2,7 +2,7 @@
 
 # BFS
   # Runtime - O(n)
-  # Memory - O(1)
+  # Memory - O(n)
   
 
 class Solution:
