@@ -1,0 +1,33 @@
+class Solution(object):
+    def orangesRotting(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        if(grid==[]): return -1
+        timer=0; fresh=0; q=[]
+        m=len(grid) #rows
+        n=len(grid[0]) #columns
+        for i in range(m):
+            for j in range(n):
+                if(grid[i][j]==1): fresh+=1
+                if(grid[i][j]==2): #put rotten in queue
+                    q.append([i,j])
+        if(fresh==0): return 0 #no fresh orange in min 0
+        dirs=[[0,1],[0,-1],[1,0],[-1,0]]
+        while(q!=[]):
+            size=len(q)
+            for j in range(size):
+                rotten=q.pop(0);
+                for dir in dirs:
+                    x=rotten[0]+dir[0]
+                    y=rotten[1]+dir[1]
+                    #print x;print y
+                    if(y>=0 and x>=0 and x<m and y<n and grid[x][y]==1):
+                        grid[x][y]=2
+                        q.append([x,y])
+                        fresh-=1
+            timer+=1
+        if(fresh>0): return -1
+        return timer-1 #last level pe extra count ho jata h
+                    
