@@ -1,3 +1,7 @@
+/**************** Time Complexity: O(mn) ***************** */
+/**************** Space Complexity: O(mn) ***************** */
+//Breadth First Search
+
 class Solution {
     public int orangesRotting(int[][] grid) {
         int minutes = 0;
@@ -13,6 +17,7 @@ class Solution {
             for(int j=0; j<grid[0].length; j++){
                 //if value is rotten; add to que
                 if(grid[i][j]==2){
+                    //since queue is of type int[], create int[] {i,j}
                     que.add(new int[]{i,j});
                 }
                 //if value is fresh; increment fresh
@@ -39,6 +44,7 @@ class Solution {
                         //if is still fresh
                         //add to que, convert to rotten
                         que.add(new int[]{i,j});
+                        //make the fresh as rotten
                         grid[i][j]=2;
                         //decrement fresh
                         fresh--;
@@ -48,10 +54,11 @@ class Solution {
             }
             minutes++;
         }
-        
+        //if fresh is greater than 0; return -1
         if(fresh != 0)
             return -1;
-        
+        //subtract minutes since it increments first and then convert
+        //fresh to rotten
         return minutes > 0 ? minutes-1 : 0;           
     }
 }
