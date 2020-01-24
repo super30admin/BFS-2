@@ -1,0 +1,36 @@
+//DFS solution using global variable
+//Time: O(n)
+//Spcae: O(1)
+class Solution {
+    //for x and y we will keep track of its parent and depth so taking global variable
+        TreeNode parent_x=null;
+        TreeNode parent_y=null;
+        int depth_x=0;
+        int depth_y=0;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        
+        helper(root, 0, x, y, null);
+        //we have value in global variable once recursion returns here
+        return (parent_x!=parent_y && depth_x==depth_y);
+    }
+    
+    void helper(TreeNode root, int depth, int x, int y, TreeNode parent)
+    {
+        if(root==null) return;
+        //update global variable when condition meet
+        if(root.val==x)
+        {
+            parent_x = parent;
+            depth_x=depth;      
+        }
+        //update global variable when condition meet
+        if(root.val==y)
+        {
+            parent_y = parent;
+            depth_y=depth;      
+        }
+        
+        helper(root.left, depth+1,x,y,root);
+        helper(root.right, depth+1,x,y,root); 
+    }
+}
