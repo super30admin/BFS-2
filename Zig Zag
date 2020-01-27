@@ -1,0 +1,58 @@
+/**
+Time O(n)
+Space O(1) (Assuming output does not count as extra memory)
+Leetcode yes
+problem no
+
+BFS traversal. We maintain a count variable. If it is even we reverse the arraylist of that level and store in our resultant
+list. Else store the arraylist of that level normally.
+
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        
+        List<List<Integer>> solution = new ArrayList<>();
+        
+        if(root == null)
+            return solution;
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        int count =1;
+        
+        
+        while(q.size()!= 0)
+        {
+            List<Integer> temp = new ArrayList<>();
+            TreeNode s;
+            int size = q.size();
+            
+            for(int i = 0;i<size;i++)
+            {
+                s = q.poll();
+                if(s.left!=null)
+                    q.add(s.left);
+                if(s.right!=null)
+                    q.add(s.right);
+                temp.add(s.val);
+            }
+            
+            if(count%2 == 0 )
+                Collections.reverse(temp);
+            
+            count++;
+            
+            solution.add(temp);
+            
+        }
+        return solution;
+        
+    }           
+}
