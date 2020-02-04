@@ -1,6 +1,6 @@
 # BFS-2
 
-## Problem1 (https://leetcode.com/problems/cousins-in-binary-tree/)
+## Problem59 (https://leetcode.com/problems/cousins-in-binary-tree/)
 In a binary tree, the root node is at depth 0, and children of each depth k node are at depth k+1.
 
 Two nodes of a binary tree are cousins if they have the same depth, but have different parents.
@@ -30,7 +30,7 @@ Note:
 The number of nodes in the tree will be between 2 and 100.
 Each node has a unique integer value from 1 to 100.
 
-## Problem2 (https://leetcode.com/problems/rotting-oranges/)
+## Problem60 (https://leetcode.com/problems/rotting-oranges/)
 In a given grid, each cell can have one of three values:
 
 the value 0 representing an empty cell;
@@ -62,7 +62,7 @@ Note:
 1 <= grid[0].length <= 10
 grid[i][j] is only 0, 1, or 2.
 
-## Problem3 : Employee importance (https://leetcode.com/problems/employee-importance/)
+## Problem61 : Employee importance (https://leetcode.com/problems/employee-importance/)
 
 You are given a data structure of employee information, which includes the employee's unique id, his importance value and his direct subordinates' id.
 
