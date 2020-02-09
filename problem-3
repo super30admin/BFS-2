@@ -1,0 +1,31 @@
+
+//Time : O(n) for each employee you need to traverse the queue which can have max n length of emp list
+//SPace : O(n) queue would have n max size of employees length 
+class Solution {
+    public int getImportance(List<Employee> employees, int id) {
+      HashMap<Integer, Employee> map=new HashMap<>();
+      Queue<Integer> q=new LinkedList<>();
+        int result=0;
+        //create a map for all the values given in input so that we can search it later in constant time
+      for(Employee e:employees)
+      {
+          map.put(e.id, e);
+      }
+        //now add initial id in queue
+        q.add(id);
+        //now traverese the queue , do bfs 
+        while(!q.isEmpty())
+        {
+            int ide=q.poll();
+            Employee e= map.get(ide);
+            //track importance of each employee and its subordinate
+            result+=e.importance;
+            for( int s: e.subordinates)
+            {
+                //add each subordinate of that employee
+                q.add(s);
+            }
+        }
+        return result;
+    }
+}
