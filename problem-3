@@ -29,3 +29,35 @@ class Solution {
         return result;
     }
 }
+
+
+//DFS solution 
+//Time : O(n) for each employee you need to traverse the queue which can have max n length of emp list
+//SPace : O(n) implicit call stack size
+
+class Solution {
+    int result=0;
+    public int getImportance(List<Employee> employees, int id) {
+      HashMap<Integer, Employee> map=new HashMap<>();
+        // int result=0;
+        //create a map for all the values given in input so that we can search it later in constant time
+      for(Employee e:employees)
+      {
+          map.put(e.id, e);
+      }
+        
+       Employee e= map.get(id);
+       //result=e.importance;
+       return dfs(employees, id ,map);
+    }
+    int dfs(List<Employee> employees, int id, HashMap<Integer, Employee> map)
+    {
+        Employee e= map.get(id);
+        result+=e.importance;
+        for(int subId:e.subordinates)
+        {  
+           dfs(employees, subId, map);
+        }
+        return result;
+    }
+}
