@@ -1,0 +1,61 @@
+//TIme : O(m*n) we are touching all elements
+//space : O(m*n) we are putting all elements in queue in worst case
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        if(grid==null || grid.length==0) return -1;
+        Queue<int[]> q=new LinkedList<>();
+        int count=0;
+        int fresh=0;
+        //traverse the matrix and put al rotten oranges into queue
+        for(int i=0;i<grid.length;i++)
+        {
+            for(int j=0;j<grid[0].length;j++)
+            {
+                if(grid[i][j]==2)
+                {
+                   q.add(new int[] {i,j});
+                }
+                //we are keeing track of it so that atlast we can check if its non zero then return -1
+                 if(grid[i][j]==1)
+                {
+                  fresh++;
+                }
+            }
+        }
+            //once queue is ready we, start applying bfs...
+                    int[][] dirs={{1,0},{-1,0},{0,1},{0,-1}};
+                   while(!q.isEmpty())
+                   {
+                       int size=q.size();
+                       //process levels
+                       for(int k=0;k<size;k++)
+                       {   
+                       int[] rotten=q.poll();
+                       for(int[]  dir:dirs)
+                       {
+                           //direction from the rotten orange: rotten orange ith position+ dir array ith position
+                           int r=rotten[0]+dir[0];
+                           int c=rotten[1]+dir[1];
+                           if(r>=0 && r<grid.length && c>=0 && c<grid[0].length && grid[r][c]==1)
+                           {
+                               grid[r][c]=2;
+                               //adding next positions
+                               q.add(new int[] {r,c});
+                               //decrease fresh count as we have converted it into rotten
+                               fresh--;
+                           }
+                       }
+                       }
+                       //increase count after processing each level
+                       count++;
+                   }
+                
+        System.out.println(count);
+         if(fresh>0)
+        return -1;
+        if(count>0)
+        return count-1;
+        else
+            return 0;
+          }
+}
