@@ -4,9 +4,11 @@
 class Solution {
     int y_depth;
     int x_depth;
-    int x_parent;
-    int y_parent;
+    TreeNode x_parent;
+    TreeNode y_parent;
     public boolean isCousins(TreeNode root, int x, int y) {
+        if(root == null)
+            return false;
         isCousins(root, x, y, null, 0);
         return y_depth == x_depth && y_parent != x_parent;
     }
@@ -16,15 +18,15 @@ class Solution {
             return ;
         }
         
-        if(parent != null){
-             if(root.val == x){
-                x_depth = depth;
-                x_parent = parent.val;
-            }else if(root.val == y){
-                y_depth = depth;
-                y_parent = parent.val;
-            }
-        } 
+       
+        if(root.val == x){
+            x_depth = depth;
+            x_parent = parent;
+        }else if(root.val == y){
+            y_depth = depth;
+            y_parent = parent;
+        }
+        
         
        
         
