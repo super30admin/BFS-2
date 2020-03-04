@@ -43,7 +43,8 @@ class Solution {
 Time: O(N) space:O(N) where N is number of employees
 Algorithm:
 =========
-
+1. Add employee with required id to queue 
+2. Poll employee ids from stack recursively, update total importance and push their own subordinates to stack until queue is empty
 */
 class Solution {
     Map<Integer, Employee> empMap;
