@@ -1,3 +1,5 @@
+#BFS
+#------------------------------------
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -43,3 +45,8 @@ class Solution(object):
             if (x_found or y_found ):
                 return False
         return False
+
+    
+    
+ #DFS
+#-----------------------------------------------
