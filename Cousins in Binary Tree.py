@@ -1,4 +1,3 @@
-
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -14,26 +13,26 @@ class Solution(object):
         :type y: int
         :rtype: bool
         """
-        result = []
+        
         if root == None:
             return False
         queue = deque()
         queue.append(root)
         while queue:
             size = len(queue)
-            x_found,y_found = False ,False
+            x_found,y_found = False,False
             for _ in range(size):
                 node = queue.popleft() 
                 if (node.val) == x :
                     x_found = True
                 if (node.val) == y:
                     y_found = True
-                if not node.left or not node.right:
-               # if (node.left != null or node.right != null ):
-                    print(node.left.val)
-                    if node.left.val == x or node.right.val == y:
+               # if not node.left or not node.right:
+                if (node.left != None and node.right != None ):
+                    #print("fduu",node.left.val)
+                    if node.left.val == x and node.right.val == y:
                         return False
-                    if node.right.val == y or node.left.val == x:
+                    if node.right.val == x and node.left.val == y:
                         return False
                 if (node.left != None):
                     queue.append(node.left)
@@ -43,5 +42,4 @@ class Solution(object):
                 return True
             if (x_found or y_found ):
                 return False
-        return Fasle
-                    
+        return False
