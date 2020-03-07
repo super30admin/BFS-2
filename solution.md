@@ -85,3 +85,40 @@ No.
                         return False
                 return False
 
+
+# Problem 3
+## Time Complexity :
+O(n)
+
+## Space Complexity :
+O(n)
+
+## Did this code successfully run on Leetcode :
+Yes.
+
+## Any problem you faced while coding this :
+No.
+
+## Your code here along with comments explaining your approach
+### Solution 1: BFS.
+        import queue
+        class Solution:
+            def getImportance(self, employees: List['Employee'], id: int) -> int:
+                #Edge Case
+                if(len(employees)==0):
+                    return 0
+                result=0
+                map=dict()
+                for emp in employees:
+                    map[emp.id]=emp
+                q=queue.Queue()
+                q.put(id)
+                while not q.empty():
+                    eid=q.get()
+                    e=map[eid]
+                    subs=e.subordinates
+                    result+=e.importance
+                    if(len(subs)!=0):
+                        for subid in subs:
+                            q.put(subid)
+                return result
