@@ -122,3 +122,37 @@ No.
                         for subid in subs:
                             q.put(subid)
                 return result
+
+
+# Problem 3
+## Time Complexity :
+O(n)
+
+## Space Complexity :
+O(n)
+
+## Did this code successfully run on Leetcode :
+Yes.
+
+## Any problem you faced while coding this :
+No.
+
+## Your code here along with comments explaining your approach
+### Solution 2: DFS.
+        class Solution:
+            def getImportance(self, employees: List['Employee'], id: int) -> int:
+                def dfs(id):
+                    e=self.map[id]
+                    self.result+=e.importance
+                    subs=e.subordinates
+                    for i in range(len(subs)):
+                        dfs(subs[i])
+                #Edge Case
+                if(len(employees)==0):
+                    return 0
+                self.result=0
+                self.map=dict()
+                for emp in employees:
+                    self.map[emp.id]=emp
+                dfs(id)
+                return self.result
