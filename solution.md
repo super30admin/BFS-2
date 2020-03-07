@@ -3,7 +3,7 @@
 O(n)
 
 ## Space Complexity :
-O(1)
+O(n)
 
 ## Did this code successfully run on Leetcode :
 Yes.
@@ -44,7 +44,7 @@ No.
 O(n)
 
 ## Space Complexity :
-O(1)
+O(n)
 
 ## Did this code successfully run on Leetcode :
 Yes.
@@ -53,7 +53,7 @@ Yes.
 No.
 
 ## Your code here along with comments explaining your approach
-### Solution 1: BFS.        
+### Solution 2: BFS.        
         import queue
         class Solution:
             def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
@@ -84,3 +84,4 @@ No.
                     if(x_found or y_found):
                         return False
                 return False
+
