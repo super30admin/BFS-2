@@ -12,7 +12,7 @@ Yes.
 No.
 
 ## Your code here along with comments explaining your approach
-### Solution 1: BFS.
+### Solution 1: DFS.
         class Solution:
             def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
                 def dfs(root: TreeNode, x, y, depth, parent: TreeNode):
@@ -37,4 +37,50 @@ No.
                     return False
                 dfs(root,x,y,0,None)
                 return self.x_depth==self.y_depth and self.x_parent!=self.y_parent
-        
+
+
+# Problem 1
+## Time Complexity :
+O(n)
+
+## Space Complexity :
+O(1)
+
+## Did this code successfully run on Leetcode :
+Yes.
+
+## Any problem you faced while coding this :
+No.
+
+## Your code here along with comments explaining your approach
+### Solution 1: BFS.        
+        import queue
+        class Solution:
+            def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+                #Edge Case
+                if not root:
+                    return False
+                q=queue.Queue()
+                q.put(root)
+                while not q.empty():
+                    x_found,y_found=False,False
+                    for i in range(q.qsize()):
+                        node=q.get()
+                        if node.val==x:
+                            x_found =True
+                        if node.val==y:
+                            y_found =True
+                        if (node.right!=None and node.left!=None):
+                            if (node.left.val==x and node.right.val==y):
+                                return False
+                            if (node.left.val==y and node.right.val==x):
+                                return False
+                        if (node.left!=None):
+                            q.put(node.left)
+                        if (node.right!=None):
+                            q.put(node.right)
+                    if(x_found and y_found):
+                        return True
+                    if(x_found or y_found):
+                        return False
+                return False
