@@ -40,3 +40,29 @@ class Solution {
         return result;  
     }
 }
+
+
+// DFS
+class Solution {
+    int result =0;
+    public int getImportance(List<Employee> employees, int id) {
+        if(employees == null || employees.size() ==0){
+            return 0;
+        }
+        HashMap<Integer,Employee> map = new HashMap<>();
+        for(int i=0; i < employees.size(); i++){
+            Employee emp = employees.get(i);
+            map.put(emp.id,emp);  
+        }
+        dfs(map,id);
+        return result;  
+    }
+    private void dfs(HashMap<Integer,Employee> map, int id){
+        Employee emp = map.get(id);
+        result += emp.importance;
+        for(int subid :  emp.subordinates){
+            dfs(map,subid);
+        }
+    }
+    
+}
