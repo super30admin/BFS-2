@@ -101,40 +101,40 @@ Yes. I understood the working of the problem, but cannot resolve the issue.
 ## Your code here along with comments explaining your approach
 ### Solution
 
-import queue
-class Solution:
-    def orangesRotting(self, grid: List[List[int]]) -> int:
-        if not grid or len(grid)==0:
-            return 0
-        m = len(grid)
-        n=len(grid[0])
-        q=queue.Queue()
-        fresh=0
-        for i in range(m):
-            for j in range(n):
-                if(grid[i][j]==1):
-                    fresh+=1
-                if(grid[i][j]==2):
-                    q.put([i,j])
-        time=0
-        dirs=[[0,1],[0,-1],[1,0],[-1,0]]
-        while not q.empty():
-            for i in range(q.qsize()):
-                curr=[q.get()]
-                for dir in dirs:
-                    r=dir[0]+curr[0]
-                    c=dir[1]+curr[1]
-                    if(r>=0 and r<m and c<n and grid[r][c]==1):
-                        grid[r][c]=2
-                        fresh-=1
-                        q.put([r,c])
-            time+=1
-        if fresh>0:
-            return -1
-        if time>0:
-            return t-1
-        else:
-            return 0
+        import queue
+        class Solution:
+            def orangesRotting(self, grid: List[List[int]]) -> int:
+                if not grid or len(grid)==0:
+                    return 0
+                m = len(grid)
+                n=len(grid[0])
+                q=queue.Queue()
+                fresh=0
+                for i in range(m):
+                    for j in range(n):
+                        if(grid[i][j]==1):
+                            fresh+=1
+                        if(grid[i][j]==2):
+                            q.put([i,j])
+                time=0
+                dirs=[[0,1],[0,-1],[1,0],[-1,0]]
+                while not q.empty():
+                    for i in range(q.qsize()):
+                        curr=[q.get()]
+                        for dir in dirs:
+                            r=dir[0]+curr[0]
+                            c=dir[1]+curr[1]
+                            if(r>=0 and r<m and c<n and grid[r][c]==1):
+                                grid[r][c]=2
+                                fresh-=1
+                                q.put([r,c])
+                    time+=1
+                if fresh>0:
+                    return -1
+                if time>0:
+                    return t-1
+                else:
+                    return 0
 
 
 # Problem 3
