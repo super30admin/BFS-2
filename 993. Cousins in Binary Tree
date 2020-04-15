@@ -1,0 +1,48 @@
+Time complexity: O(n)
+Space complexity: O(maxDepth)
+Did this code submitted successfully on leetcode: Yes
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int depth_x=0;
+    int depth_y=0;
+    
+    TreeNode parent_x=null;
+    TreeNode parent_y=null;
+    
+    public boolean isCousins(TreeNode root, int x, int y) {
+        TreeNode parent = null;
+        recurr(root, 0, x, y, parent);
+        return depth_x==depth_y && parent_x!=parent_y;
+    }
+    
+    private void recurr(TreeNode root, int depth, int x, int y, TreeNode parent){
+        
+        //base case
+        if(root==null)
+            return;
+        
+        //logic
+        if(root.val == x){
+            depth_x=depth;
+            parent_x=parent;
+        }
+        
+        if(root.val == y){
+            depth_y=depth;
+            parent_y=parent;
+        }
+        
+        //recurssion
+        recurr(root.left, depth+1, x, y, root);
+        recurr(root.right, depth+1, x, y, root);
+    }
+}
