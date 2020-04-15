@@ -58,7 +58,7 @@ class Solution {
         return output;
         
     }
-      public List neighbour(int[][] grid,int R, int C,int r,int c)
+      public List<Integer> neighbour(int[][] grid,int R, int C,int r,int c)
     { 
           List<Integer> n = new ArrayList<>();
            int[][] dirs = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
