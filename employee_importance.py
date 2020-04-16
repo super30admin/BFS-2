@@ -5,7 +5,9 @@
 // Any problem you faced while coding this :
 // Your code here along with comments explaining your approach
 Algorithm explanation
-    DFS on the given employee obj
+- Create graph using the hashmap from the list of employees
+- Method1 - BFS on the given employee id
+- Method2 - DFS on the given employee id
 """
 """
 # Employee info
@@ -56,3 +58,17 @@ class Solution(object):
                     q.append(empid)
                     visited.add(empid)
         return total_importance
+
+
+
+        #Method2 - DFS
+        self.total_importance=0
+        def dfs(empid):
+            empobj = emp_graph[empid]
+            self.total_importance+=empobj.importance
+            subordinates = empobj.subordinates
+            if subordinates:
+                for i in subordinates:
+                    dfs(i)
+        dfs(id)
+        return self.total_importance
