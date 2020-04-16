@@ -1,8 +1,8 @@
 """
-// Time Complexity : O(m + n) m-> number of employees, n-> no of suboordinates
-// Space Complexity : O(m + n)
+// Time Complexity : O(n) n-> number of employees
+// Space Complexity : O(n)
 // Did this code successfully run on Leetcode : No
-// Any problem you faced while coding this : Probably missing some edge cases
+// Any problem you faced while coding this :
 // Your code here along with comments explaining your approach
 Algorithm explanation
     DFS on the given employee obj
@@ -55,5 +55,4 @@ class Solution(object):
                 if empid not in visited:
                     q.append(empid)
                     visited.add(empid)
-                    total_importance+=empobj.importance
         return total_importance
