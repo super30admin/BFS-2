@@ -34,7 +34,7 @@ grid[i][j] is only 0, 1, or 2.
 
 """
 
-
+#BFS TIME- O(N), SPACE- O(N)
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         if grid == None or len(grid) == 0:

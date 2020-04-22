@@ -30,7 +30,9 @@ The number of nodes in the tree will be between 2 and 100.
 Each node has a unique integer value from 1 to 100.
 
 """
+#we need to keep track of parents and depth of x and y
 # BFS
+#TIME- O(N), SPACE - O(N)
 from collections import deque
 class Solution:
     def isCousins(self, root: TreeNode, x: int, y: int) -> bool:

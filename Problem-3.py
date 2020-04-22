@@ -33,7 +33,9 @@ class Employee:
         self.subordinates = subordinates
 """
 
-
+"""
+CRETE A hashmap [id: employeee] , pass the given id and add the importance, loop through all subordiates of given id
+"""
 class Solution:
 
     def getImportance(self, employees: List['Employee'], id: int) -> int:
