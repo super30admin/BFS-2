@@ -1,0 +1,54 @@
+// Time Complexity : O(m*n)
+// Space Complexity : O(m*n)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        
+        int count = 0;
+        /* edge case */
+        if(grid.length == 0) return 0;
+        int n = grid.length;
+        int f = grid[0].length;
+        
+        /* queue for bfs */
+        Queue<Integer> q = new ArrayDeque<>();
+        HashMap<Integer,Integer> hm = new HashMap<>(); // hashmap to store the curent index and depth 
+        
+        for(int i=0;i<grid.length;i++)                // add all the values where index is 2 to the queue and its depth as zero
+            for(int j = 0;j<grid[0].length;j++)
+                if(grid[i][j] == 2){
+                    q.add(f*i+j);
+                    hm.put(f*i+j,0);
+                }
+        
+        /* direction in all four direction */
+        int[] d1 = new int[]{-1,1,0,0};
+        int[] d2 = new int[]{0,0,-1,1};
+        
+        while(!q.isEmpty()){
+            int k = q.remove(); // get the value out of queue and get row and column value
+            int x = k/f;
+            int y = k%f;
+            for(int l = 0 ; l<4;l++){ // move in all four direction of current node
+                int x1 = x+d1[l];
+                int y1 = y+d2[l];
+                if(x1>= 0 && y1>= 0 && x1<n && y1<grid[0].length && grid[x1][y1] ==1){
+                    // if value at the new ubdex is 1 then make it 2 and the value to queue and increase depth by 1
+                grid[x1][y1] = 2;
+                hm.put(x1*f+y1,hm.get(k)+1);
+                q.add(x1*f+y1);
+                    /* update the new max depth */
+                count = hm.get(x1*f+y1);
+                }
+            }
+        }
+        /* if any value in grid is 1 then return -1 */
+        for(int[] u:grid)
+            for(int h: u)
+                if(h ==1)
+                    return -1;
+        return count;
+    }
+}

@@ -1,0 +1,39 @@
+/*
+// Employee info
+class Employee {
+    // It's the unique id of each node;
+    // unique id of this employee
+    public int id;
+    // the importance value of this employee
+    public int importance;
+    // the id of direct subordinates
+    public List<Integer> subordinates;
+};
+*/
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : No
+
+class Solution {
+    public int getImportance(List<Employee> employees, int queryid) {
+        
+        int total = 0;
+        /* add employee id as key and employee as value */
+        Map<Integer, Employee> map = new HashMap<>();
+        for (Employee employee : employees) {
+            map.put(employee.id, employee);
+        }
+        /* queue is for bfs*/
+        Queue<Employee> queue = new LinkedList<>();
+        queue.offer(map.get(id)); // add the id to queue
+        while (!queue.isEmpty()) {
+            Employee current = queue.poll(); // poll item for queue and its importance to total
+            total += current.importance;
+            for (int subordinate : current.subordinates) { // add its sub coordinates employee to queue
+                queue.offer(map.get(subordinate));
+            }
+        }
+        return total;
+    }
+}
