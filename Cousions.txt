@@ -1,0 +1,52 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+    /* edge case */
+    if (root == null) return false;
+        
+   /* add root to queue */
+	Queue<TreeNode> queue = new LinkedList<>();
+	queue.offer(root);
+        
+	while (!queue.isEmpty()) {
+		int size = queue.size(); // get the size of the queue , which is all the elements at same level
+		boolean isAexist = false;		 // if value A is found
+		boolean isBexist = false;		  // if value B is found
+		for (int i = 0; i < size; i++) {     // now iterate through tthe current level values
+			TreeNode cur = queue.poll();
+            if (cur.val == A) isAexist = true;
+            if (cur.val == B) isBexist = true;
+            // if both the values have same parent then return false
+			if (cur.left != null && cur.right != null) { 
+				if (cur.left.val == A && cur.right.val == B) { 
+					return false;
+				}
+				if (cur.left.val == B && cur.right.val == A) { 
+					return false;
+				}
+			}
+			if (cur.left != null) { // add left
+				queue.offer(cur.left);
+			}
+			if (cur.right != null) {  // add right
+				queue.offer(cur.right);
+			}
+		}
+		if (isAexist && isBexist)  return true; // if both are values are at same level then return true
+	}
+	return false;   // by default value not found so return false
+    }
+}
