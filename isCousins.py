@@ -36,6 +36,8 @@ class Solution:
             self.dfs(root.right, value, depth+1, root.val)
         
 # BFS Solution:
+#Time Complexity:O(n)
+#Space Complexity:O(h)
 class Solution:
 
     def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
