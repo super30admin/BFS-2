@@ -1,5 +1,5 @@
 // Time Complexity :  O(m*n*4)  -> (m*n) + (queue size at max can be 4 at a minute - hence constant)  
-// Space Complexity : O(1) A queue of pairs but at any given minute the max can only be 4 UP DOWN LEFT RIGHT
+// Space Complexity : O(m*n) Worst case
 // Did this code successfully run on Leetcode : Yes
 // Any problem you faced while coding this : Alot of thinking!
 
