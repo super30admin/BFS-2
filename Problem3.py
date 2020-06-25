@@ -1,5 +1,5 @@
-# Time Complexity : O(n) time 
-# Space Complexity : O(n) space
+# Time Complexity : O(n) time, where n is the total number of employees 
+# Space Complexity : O(n) space, where n is the total number of employees
 # Did this code successfully run on Leetcode : Yes
 # Any problem you faced while coding this : No
 # Your code here along with comments explaining your approach
