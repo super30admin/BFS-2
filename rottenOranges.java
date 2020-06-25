@@ -1,5 +1,5 @@
-// Time Complexity :O(m+n)
-// Space Complexity :O(m+n) m-row length n-column length
+// Time Complexity :O(m*n)
+// Space Complexity :O(m*n) m-row length n-column length
 // Did this code successfully run on Leetcode :yes
 class Solution {
     public int orangesRotting(int[][] grid) {
