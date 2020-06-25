@@ -30,3 +30,40 @@ class Solution {
         return importance;
     }
 }
+
+//recurisve 
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
+
+
+// Your code here along with comments explaining your approach
+
+
+class Solution {
+    
+    HashMap<Integer,Employee> map ;
+    int importance;
+    public int getImportance(List<Employee> employees, int id) {
+        
+        map = new HashMap<>();
+        for(Employee employee : employees){
+            map.put(employee.id ,employee);
+        }
+    
+         helper(id);
+         return importance;
+      
+    }
+    
+    private void helper(int id){
+        Employee e = map.get(id);
+        importance = importance+e.importance;
+        List<Integer>  sub =  e.subordinates;
+        for(int  s  : sub){
+             helper(s);
+        }
+        return; 
+    }
+}
