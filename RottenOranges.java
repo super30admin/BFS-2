@@ -39,6 +39,7 @@ class Solution {
         
         return fresh != 0?-1: time - 1;                 
     }
+}
 
 //Time Complexity: O(h * w * (h + w)), where h and w are the dimension of the grid. (h + w) Maximum distance between two cells through all grid cells.
 //Space: O(1)
@@ -73,5 +74,4 @@ class Solution {
          g[i][j] = d + 3;
          return 1;
     }
-}
 }
