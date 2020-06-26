@@ -39,4 +39,39 @@ class Solution {
         
         return fresh != 0?-1: time - 1;                 
     }
+
+//Time Complexity: O(h * w * (h + w)), where h and w are the dimension of the grid. (h + w) Maximum distance between two cells through all grid cells.
+//Space: O(1)
+
+// Referred google for this solution.
+
+//Approach:- First, count fresh oranges.Then, until fresh is non-zero, perform BFS to rot oranges, 
+//decreasing fresh. Count days (d) and return it in the end. If, after another day, fresh does not 
+//change, return -1. 
+
+class Solution {        
+    public int orangesRotting(int[][] g){
+      int fresh = 0, d = 0;
+      for (int i = 0; i < g.length; ++i)
+        for (int j = 0; j < g[i].length; ++j)
+          if (g[i][j] == 1)
+              ++fresh;
+      for (int old_fresh = fresh; fresh > 0; ++d, old_fresh = fresh) {
+        for (int i = 0; i < g.length; ++i)
+          for (int j = 0; j < g[i].length; ++j)
+            if (g[i][j] == d + 2)
+              fresh -= rot(g, i + 1, j, d) + rot(g, i - 1, j, d) + rot(g, i, j + 1, d) + rot(g, i, j - 1, d);
+        if (fresh == old_fresh) 
+            return -1;
+      }
+       return d;
+    }
+    
+    private int rot(int[][] g, int i, int j, int d){
+        if (i < 0 || j < 0 || i >= g.length || j >= g[i].length || g[i][j] != 1)
+            return 0;
+         g[i][j] = d + 3;
+         return 1;
+    }
+}
 }
