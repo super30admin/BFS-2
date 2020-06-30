@@ -1,0 +1,64 @@
+// Time Complexity :O(n) -number of employees
+// Space Complexity : O(n) - number of employees to be stores in the hash map.
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this :
+
+
+// Your code here along with comments explaining your approach : DFS approach. Add all the elements a hash map.find the importance for each of the subordinates in the hash map.
+
+
+class Solution {
+     Map<Integer,Employee> hmap;
+     int result;
+    public int getImportance(List<Employee> employees, int id) {
+        if(employees==null) return 0;
+        hmap=new HashMap<>();
+        for(Employee e: employees){
+            hmap.put(e.id,e);
+        }
+        dfs(id);
+        return result;
+    }
+    private int dfs(int id){
+        //base
+        //logic
+        Employee e=hmap.get(id);
+        result+=e.importance;
+        for(int s: e.subordinates){
+                dfs(s);
+        }
+        return result;
+    }
+}
+
+// Time Complexity :O(n)- number of employees
+// Space Complexity : O(n)-number of employees
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : incrementally add the importance based on the neighbors value. BFS queue approach.
+
+
+// Your code here along with comments explaining your approach
+
+
+class Solution {
+    public int getImportance(List<Employee> employees, int id) {
+        if(employees==null) return 0;
+        Map<Integer,Employee> hmap=new HashMap<>();
+        for(Employee e: employees){
+            hmap.put(e.id,e);
+        }
+        Queue<Employee> q=new LinkedList<>();
+        int result=0;
+        q.add(hmap.get(id));;
+        while(!q.isEmpty()){
+            Employee curr=q.poll();
+            result+=curr.importance;
+            List<Integer> l= curr.subordinates;
+            for(int c: l){
+                q.add(hmap.get(c));
+            }
+            }
+        
+        return result;
+    }
+}
