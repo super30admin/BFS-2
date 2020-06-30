@@ -1,0 +1,29 @@
+// Time Complexity: O(n)   n-> num of nodes
+// Space Complexity: O(n) n-> skewed tree where every employee has 1 subordinate
+
+class Solution {
+    Map<Integer, Employee> map;
+    int result;
+    public int getImportance(List<Employee> employees, int id) {
+        if(employees == null) return 0;
+        map = new HashMap<>();
+
+        for(Employee e : employees){
+            map.put(e.id, e);
+        }
+
+        dfs(id);
+        return result;
+    }
+
+    private void dfs(int eid){
+        // base case   // not needed , handled by the for loop
+        // logic
+        Employee e = map.get(eid);
+        result += e.importance;
+        for(int sId : e.subordinates){
+            dfs(sId);
+        }
+
+    }
+}
