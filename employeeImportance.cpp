@@ -40,3 +40,41 @@ public:
         return imp;
     }
 };
+
+// DFS
+// Time Complexity : O(V+E) - V number of nodes-employees, E number of edges-total number of subordinates 
+// Space Complexity : O(n); 
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
+// Note: An input like 2 and 3 are subordinates of 1 and 2 is also a subordinate of 3 is also psbl
+
+// 1. DFS traversal: pass importance by reference to recursive function
+// 2. In recursive function, add importance and recursively call for all subordinates
+// 3. Keep map global or pass by reference both take similar time while passing by value takes huge time and space
+
+class Solution {
+public:
+    map<int, Employee*> record;
+    int getImportance(vector<Employee*> employees, int id) {
+        if(employees.size() == 0)
+            return 0;
+        // map<int, Employee*> record;
+        for (auto employee: employees)
+            record[employee->id] = employee;
+        int imp = 0;
+        dfs(id, imp);
+        return imp;
+    }
+    
+    void dfs(int id, int& imp){
+        // base
+        // nothing since we iterate over for loop so won't overrrun
+        // logic
+        auto emp = record[id];
+        imp+=emp->importance;
+        for(int subord: emp->subordinates)
+            dfs(record[subord]->id, imp);
+    }
+};
+
