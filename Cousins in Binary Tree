@@ -1,0 +1,45 @@
+Approach 1 : BFS
+Time Complexity : O(N)
+Space Complexity : O(N)
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import defaultdict
+class Solution:
+    def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+        if root is None :
+            return False
+        ### Queue for BFS
+        ##queue=[root]
+        queue = collections.deque([root])
+        while queue:
+            size=len(queue)
+            x_found,y_found=False,False
+            for i in range(size):
+                node=queue.popleft()
+                if node.val==x:
+                    x_found=True
+                if node.val==y:
+                    y_found==True
+                if not node.left is None and not node.right is None: ### Not Having same Parent check
+                    if node.left.val==x and node.right.val==y:
+                        return False
+                    if node.left.val==y and node.right.val==x:
+                        return False
+                if not node.left is None:
+                    queue.append(node.left)
+                if not node.right is None:
+                    queue.append(node.right)
+            if x_found and y_found:
+                return True
+        return False
+
+Approach 2: DFS
+Time Complexity: O(N)
+Space Complexity : O(n/2) --> O(
+
+
