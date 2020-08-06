@@ -1,0 +1,38 @@
+Approach 1 :
+Time Complexity :O(N)--- > No of elements in the matrix
+Space Complexity : O(N) --- We are using Queue
+from collections import deque
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        if grid is None :
+            return 0
+        fresh_oranges=0 ### Count of fresh oranges
+        q = deque() ### Tuple -- Indices of oranges
+     
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 2:
+                    q.append((i, j))
+                elif grid[i][j] == 1:
+                    fresh_oranges += 1
+        if fresh_oranges==0: return 0
+        directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+        while q:
+            time=0
+            size=len(q)
+            for i in range(size): ### Level Order Traversal
+                row,col=q.popleft()
+                for d in directions:
+                    ## I want to go to a neighbour in that particular direction
+                    r=row+d[0]
+                    c=col+d[1]
+                    if r>=0 and r<len(grid) and c>=0 and c<len(grid[0]) and grid[r][c]==1:
+                        grid[r][c]==2
+                        fresh_oranges-=1
+                        q.append((r,c))
+            time+=1
+            
+        if fresh_oranges!=0:
+            return -1
+        else:
+            time-1
