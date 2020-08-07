@@ -33,3 +33,21 @@ class Solution(object):
         ans = 0
         ans = dfs(hashmap, id)            
         return ans
+        
+  Approach 2: BFS
+  Time Complexity :O(N)
+  Space Complexity : O(N)
+  class Solution:
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+        if len(employees)==0 and employees is None: return 0
+        emp={e.id: e for e in employees}
+        q=deque()### Queue
+        q.append(emp[id])
+        result=0
+        while q:
+            employee=q.popleft()
+            result+=employee.importance
+            for subs in employee.subordinates:
+                q.append(emp[subs])
+        return result
+  
