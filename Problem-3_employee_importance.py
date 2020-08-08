@@ -1,6 +1,6 @@
 # APPROACH  1: BFS
 # Time Complexity : O(n), n: number of employee records in given list
-# Space Complexity : O(n) due to hashmap
+# Space Complexity : O(n * max size of employee record), due to hashmap
 # Did this code successfully run on Leetcode : Yes
 # Any problem you faced while coding this : None
 #
@@ -44,7 +44,7 @@ class Solution:
         
 # APPROACH 2: DFS
 # Time Complexity : O(n), n: number of employee records in given list
-# Space Complexity : O(n) due to hashmap
+# Space Complexity : O(n * max size of employee record), due to hashmap
 # Did this code successfully run on Leetcode : Yes
 # Any problem you faced while coding this : None
 #
