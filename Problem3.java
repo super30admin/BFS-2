@@ -75,7 +75,7 @@ class Problem3S1 {
 }
 
 // Your code here along with comments explaining your approach
-// Approach 1: Using DFS
+// Approach 2: Using DFS
 // Time Complexity : O(n + h) = O(n)
 //      n: number of emeployees
 //      h: height of the subordinate tree
