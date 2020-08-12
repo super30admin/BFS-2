@@ -63,7 +63,7 @@ class Problem3S1 {
             if(myMap.containsKey(currentId)){
                 // add importance
                 result += myMap.get(currentId).importance;
-                // update importance
+                // add subordinates to queue
                 myQueue.addAll(myMap.get(currentId).subordinates);
             }else
                 break;
