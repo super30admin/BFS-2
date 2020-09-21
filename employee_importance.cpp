@@ -53,3 +53,42 @@ public:
         }
     }
 };
+
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode :
+// Any problem you faced while coding this :
+
+
+// Your code here along with comments explaining your approach
+//BFS technique is used to traverese through the employee list and calculate the importance accordingly
+class Solution {
+public:
+    int getImportance(vector<Employee*> employees, int id) {
+        //edge
+        if(employees.size()==0)
+            return 0;
+        int result=0;
+        unordered_map<int, Employee*> my_map;
+        
+        for(auto emp: employees){
+            int emp_id = emp->id;
+            my_map[emp_id] = emp;
+        }
+        
+        queue<int> q;
+        q.push(id);
+        
+        while(!q.empty()){
+            int emp = q.front();
+            q.pop();
+            Employee* emp_ptr = my_map[emp];
+            result = result + emp_ptr->importance;
+            for(auto i: emp_ptr->subordinates){
+                q.push(i);
+            }
+        }
+        
+        return result;
+    }
+};
