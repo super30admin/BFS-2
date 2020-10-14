@@ -1,0 +1,37 @@
+/*
+// Definition for Employee.
+class Employee {
+    public int id;
+    public int importance;
+    public List<Integer> subordinates;
+};
+*/
+//Time complexity: O(size of list employees given in input) // amp and queue
+//space complexity:  O(size of list employees given in input) // consumed my queu and hashmap 
+
+class Solution {
+    public int getImportance(List<Employee> employees, int id) {
+        Map<Integer, Employee> map = new HashMap<Integer, Employee>();
+        
+        for(Employee e : employees){
+            map.put(e.id, e);
+        }
+        
+        Queue<Employee> que = new LinkedList<>();
+        que.add(map.get(id));
+        int total = 0;
+        
+        while(! que.isEmpty()){
+            
+            Employee e = que.poll();
+            total += e.importance;
+            
+            for(int ID : e.subordinates){
+                que.add(map.get(ID));
+            }
+        }
+        
+        return total;
+        
+    }
+}
