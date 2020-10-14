@@ -1,0 +1,41 @@
+/ Time complexity: O(N) : number of nodes in tree worst case
+//Space complexity: O(N) : in wporst case, we store nodes at last level in the queue
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+       Queue<TreeNode[]> que = new LinkedList<>();
+       que.add(new TreeNode[] {root, null});
+    
+        
+        while(! que.isEmpty()){
+            int size = que.size();
+              boolean xExist = false;
+                boolean yExist = false;
+                TreeNode parentx = null;
+                TreeNode parenty = null;
+            
+            for(int i = 0; i < size; i++){  
+                TreeNode[] node = que.poll();
+                
+                if(node[0].val == x){ // found the node x
+                    xExist = true;
+                    parentx = node[1];
+                }
+                
+                if(node[0].val == y){ //found the node y
+                    yExist = true;
+                    parenty = node[1];
+                }
+                    
+                if(xExist == true && yExist == true && parentx != parenty){
+                    return true;
+                }
+                     
+                
+                if(node[0].left != null) que.add(new TreeNode[]{node[0].left, node[0]});
+                if(node[0].right != null) que.add(new TreeNode[]{node[0].right, node[0]});
+                
+            } 
+        }
+         return false;
+    }
+}
