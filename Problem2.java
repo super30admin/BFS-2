@@ -37,7 +37,7 @@ class Solution {
                 
                 for(int[] dir: drs){
                     int x = nrow + dir[0];
-                    int y = nrow + dir[1];
+                    int y = ncol + dir[1];
                     if(isValid(x,y,grid)){
                         grid[x][y] = 2;
                         frOrg--;
