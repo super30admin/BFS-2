@@ -30,3 +30,24 @@ class Solution {
         return imp;
     }
 }
+
+//TC: O(n)
+//SC: O(n)
+class Solution {
+    int result; Map<Integer, Employee> map;
+    public int getImportance(List<Employee> employees, int id) {
+        map = new HashMap();
+        for(Employee e : employees){
+            map.put(e.id, e);
+        }
+        dfs(id);
+        return result;
+    }
+    private void dfs(int id){
+        Employee e = map.get(id);
+        result += e.importance;
+        for(int sub : e.subordinates){
+            dfs(sub);
+        }
+    }
+}
