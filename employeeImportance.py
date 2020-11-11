@@ -16,17 +16,15 @@ class Employee:
 
 class Solution:
     def helper(self, emp):
-        for sub in self.subordinates[emp]:
-            self.result += self.importance[sub]
+        for sub in self.emps[emp].subordinates:
+            self.result += self.emps[sub].importance
             self.helper(sub)
 
     def getImportance(self, employees: List['Employee'], id: int) -> int:
-        self.importance = {}
-        self.subordinates = {}
+        self.emps = {}
         for emp in employees:
-            self.subordinates[emp.id] = emp.subordinates
-            self.importance[emp.id] = emp.importance
+            self.emps[emp.id] = emp
 
-        self.result = self.importance[id]
+        self.result = self.emps[id].importance
         self.helper(id)
         return self.result
