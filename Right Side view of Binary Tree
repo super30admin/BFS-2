@@ -1,0 +1,42 @@
+//Time Complexity: O(n)
+//Space Complexity: O(h)
+
+//Approach: Idea is to use a level order traversal but adding right child and than left sub child.
+//Aim is getting right most element at that level.
+
+SOLUTION:
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+            
+        if(root == null){
+            return result;
+        }
+        Queue<TreeNode> que = new LinkedList<>();
+        que.add(root);
+        while(!que.isEmpty() || root!=null){
+            
+            int size = que.size();    
+            if(size>0){
+                int last = que.peek().val;
+                result.add(last);
+            }else{
+                break;
+            }
+           
+            for(int i = 0 ; i < size ; i++){
+                TreeNode curr = que.poll();
+                
+                if(curr.right!=null){
+                    que.add(curr.right);
+                }
+                
+                if(curr.left!=null){
+                    que.add(curr.left);
+                }
+            }
+        }
+        return result;
+    }
+}
