@@ -26,3 +26,33 @@ class Solution {
         return result;
     }
 }
+// dfs solution
+class Solution {
+    ArrayList<Integer> result;
+    int level = 0;
+    
+    public List<Integer> rightSideView(TreeNode root) {
+        result = new ArrayList<>();
+        if(root == null){
+            return result;
+        }
+        
+        dfs(root, level);
+        
+        return result;
+    }
+    
+    private void dfs(TreeNode root, int level) {
+        if(root == null) {
+            return;
+        }
+        if(result.size() > level) {
+            result.set(level, root.val);
+        }
+        else {            
+            result.add(root.val);  
+        }  
+        dfs(root.left, level+1); 
+        dfs(root.right, level+1);
+    }
+}
