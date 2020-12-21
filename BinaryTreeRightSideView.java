@@ -51,7 +51,7 @@ class Solution {
                 TreeNode currentNode = q.poll();
                 
                 // update the last seen node val
-                nodeValLastSeen = currentNode.val;
+                nodeValLastSeen = (size == 0 ? currentNode.val : nodeValLastSeen);
                 
                 // if there is valid left child of current node then enqueue the left child
                 if(currentNode.left != null) {
