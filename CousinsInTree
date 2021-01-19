@@ -1,0 +1,107 @@
+/*
+TC: O(n) where n is each root to check if value is x or y
+SC: O(n) because of Queue.
+ */
+
+class CousinsInTree {
+    /*
+    BFS
+     */
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if (root == null) return false;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+
+        while (!q.isEmpty()) {
+            boolean X = false;
+            boolean Y = false;
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = q.poll();
+                if (curr.val == x) X = true;
+                if (curr.val == y) Y = true;
+                if (curr.left != null && curr.right != null) {
+                    if (curr.left.val == x && curr.right.val == y) {
+                        return false;
+                    }
+                    if (curr.left.val == y && curr.right.val == x) {
+                        return false;
+                    }
+                }
+
+                if (curr.left != null) {
+                    q.offer(curr.left);
+                }
+                if (curr.right != null) {
+                    q.offer(curr.right);
+                }
+            }
+            if (X && Y) return true;
+        }
+        return false;
+    }
+
+
+
+    /*
+    DFS
+     */
+    /*
+    public boolean isCousins(TreeNode root, int x, int y) {
+
+        int [] resX = helper(root,x,0,root);
+        int [] resY = helper(root,y,0,root);
+
+        if (resX[0] == resY[0] && resX[1] != resY[1]){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private int[] helper(TreeNode root, int val, int level, TreeNode parent){
+        if (root == null) return new int[]{-1,-1};
+        if (root.val == val){
+            return new int[]{level,parent.val};
+        }
+        int left[] = helper(root.left,val,level+1,root);
+        int right[] = helper(root.right,val,level+1,root);
+        if (left[0] == -1){
+            return right;
+        }
+        else{
+            return left;
+        }
+    }
+    */
+
+    /*
+    Attempt to use code used in class  but failed to check parent
+
+    class Solution {
+    List<List<Integer>> res;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        res = new ArrayList<>();
+        helper(root,0);
+        for (List<Integer> subList : res){
+            if (subList.contains(x) && subList.contains(y)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void helper(TreeNode root, int level){
+        if (root == null) return;
+
+        if (level == res.size()){
+            res.add(new ArrayList<>());
+        }
+        res.get(level).add(root.val);
+        helper(root.left,level+1);
+        helper(root.right,level+1);
+    }
+}
+     */
