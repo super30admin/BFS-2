@@ -8,7 +8,8 @@ class ShowRightSideView {
 					 : At max all leaf nodes will be added in the queue 
 					 
 	Leetcode : YES
-	Any problems : NO 
+	Any problems : NO
+	Approach : While doing BFS maintain size of each level, if current node is last node in the level add it to the output.
 	*/
 	 public List<Integer> rightSideView(TreeNode root) {
          List<Integer> output = new ArrayList<Integer>();

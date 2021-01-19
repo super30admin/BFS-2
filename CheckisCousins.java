@@ -8,12 +8,18 @@ class CheckisCousins{
 
 /*
 	Time complexity : O(N)
-	Space complexity : Queue + HashMap
-					 : O(N/2) + O(N) = O(N) ~ N is number of nodes
+	Space complexity : Queue + HashMap + HashSet
+					 : O(N/2) + O(N) + O(N/2) = O(N) ~ N is number of nodes
 					 : At max all leaf nodes will be added in the queue + all nodes in HashMap
 					 
 	Leetcode : YES
 	Any problems : NO
+	
+	Approach : 
+	To determine who is parent of a node, we are going to maintain a hashmap of {node, parent}
+	1. While BFS, maintain items at current level in HashSet
+	2. Check if x and y belong to same level
+	3. if the belong to same level, check their parent is different or not using hashmap.
 */
 
 public boolean isCousins(TreeNode root, int x, int y) {
