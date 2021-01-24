@@ -22,10 +22,10 @@ class Solution:
     def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
         
         if root == None: return
-        x_parent = TreeNode(); y_parent = TreeNode()
-        x_depth = 0; y_depth = 0
+        self.x_parent = TreeNode(); self.y_parent = TreeNode()
+        self.x_depth = 0; self.y_depth = 0
         self.dfs(root, None, 0, x, y)
-        return x_parent != y_parent and x_depth == y_depth
+        return self.x_parent != self.y_parent and self.x_depth == self.y_depth
     
     def dfs(self, root, parent, depth, x, y):
         
@@ -34,12 +34,12 @@ class Solution:
         
         # logic
         if root.val == x:
-            x_parent = parent
-            x_depth = depth
+            self.x_parent = parent
+            self.x_depth = depth
             
         if root.val == y:
-            y_parent = parent
-            y_depth = depth
+            self.y_parent = parent
+            self.y_depth = depth
             
         self.dfs(root.left, root, depth + 1, x, y)
         self.dfs(root.right, root, depth + 1, x, y)
