@@ -43,3 +43,61 @@ class Solution:
             
         self.dfs(root.left, root, depth + 1, x, y)
         self.dfs(root.right, root, depth + 1, x, y)
+        
+"""
+# Definition for Employee.
+class Employee:
+    def __init__(self, id: int, importance: int, subordinates: List[int]):
+        self.id = id
+        self.importance = importance
+        self.subordinates = subordinates
+"""
+
+class Solution:
+    
+    """
+    Description: You are given a data structure of employee information.
+    Return total importance value of given employee and all their subordinates
+
+    Time Complexicity
+
+    Approach: Use a hashmap to identify pointers to each input index
+    1. Using DFS -> find the employee subordinates and importance from the hashmap and add importances recursively
+    2. Using BFS -> add a queue and add employee+subordinates importances to in a loop until no more subordinates are left
+    """
+    
+    # Using DFS
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+     
+        self.result = 0
+        if employees == None or len(employees) == 0: return self.result
+        self.emp_dict = {emp.id: emp for emp in employees}       
+        self.dfs(id)
+        return self.result
+    
+    def dfs(self, emp_id):
+        # Base
+        # Logic
+        emp = self.emp_dict[emp_id]
+        self.result += emp.importance
+        for sub in emp.subordinates:
+            self.dfs(sub)
+    
+    # Using BFS
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+        
+        from collections import deque
+        result = 0
+        if employees == None or len(employees) == 0: return result
+        
+        queue = deque()
+        emp_dict = {emp.id: emp for emp in employees}   
+        queue.append(id)
+        while queue:
+            emp_id = queue.popleft()
+            emp = emp_dict[emp_id]
+            result += emp.importance
+            for sub in emp.subordinates:
+                queue.append(sub)
+                
+        return result
