@@ -59,7 +59,8 @@ class Solution:
     Description: You are given a data structure of employee information.
     Return total importance value of given employee and all their subordinates
 
-    Time Complexicity
+    Time Complexicity: O(n) {coming from Vertices and Edges of the graph: O(V+E)
+    Space Complexicity: O(n) {for both DFS and BFS}
 
     Approach: Use a hashmap to identify pointers to each input index
     1. Using DFS -> find the employee subordinates and importance from the hashmap and add importances recursively
