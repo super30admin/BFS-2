@@ -102,3 +102,52 @@ class Solution:
                 queue.append(sub)
                 
         return result
+
+class Solution:
+       
+    """    
+    Description (Rotting Oranges): A grid representing empty(0), fresh orange(1), and rotten(2)    
+    Return min number of minutes if it takes 1 min for rotten orange to rot adjacent oranges        
+
+    Time Complexicity: O(m*n), where m and n represents dimensions of the grid    
+    Space Complexicity: O(m*n)       
+
+    Approach: Using BFS:
+    1. make a queue starting from all the rotten oranges, if not return 0 and count fresh
+    2. traverse through each queue member and go in all 4 directions to check for fresh orange
+       - convert the fresh orange to rotten
+       - append the queue by new rotten oranges
+       - decrease count of fresh by 1 and increase time by 1 min
+    3. check for edge case where the fresh oranges are still present, return -1 (as suggested)
+    4. return time - 1 (decrese by 1 as it will account for next series)
+    """
+    
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+
+        if grid == None or len(grid) == 0: return 0
+        from collections import deque
+        queue = deque(); time = 0; fresh = 0
+        m = len(grid); n = len(grid[0])
+
+        for cr in range(m):
+            for cc in range(n):
+                if grid[cr][cc] == 2:
+                    queue.append((cr, cc))
+                elif grid[cr][cc] == 1:
+                    fresh += 1
+
+        if fresh == 0: return 0
+        dirs = [(0,1), (1,0), (0,-1), (-1,0)]
+        while queue:
+            length = len(queue)
+            for i in range(length):
+                r_pos, c_pos = queue.popleft() # tuple
+                for d in dirs:
+                    row = r_pos + d[0]; col = c_pos + d[1]
+                    if row < m and col < n and row >= 0 and col >= 0 and grid[row][col] == 1:
+                        grid[row][col] = 2
+                        queue.append((row, col))
+                        fresh -= 1
+            time += 1
+        if fresh != 0: return -1
+        return time - 1            
