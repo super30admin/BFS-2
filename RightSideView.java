@@ -1,11 +1,9 @@
-//BFS
-//time complexity - o(n)
-//space complexity - o(n)
-public List<Integer> rightSideView(TreeNode root) {
-
+//TC - O(n)
+//SC - O(n)
+class Solution {
+      public List<Integer> rightSideView(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if(root == null) return result;
-
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
 
@@ -21,3 +19,4 @@ public List<Integer> rightSideView(TreeNode root) {
         }
         return result;
     } 
+}
