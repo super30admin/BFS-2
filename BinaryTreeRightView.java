@@ -40,3 +40,21 @@ class Solution {
         return result;
     }
 }
+
+/* Recursive Approach 
+class Solution {
+    List<Integer> result = new ArrayList<>();
+    public List<Integer> rightSideView(TreeNode root) {
+        if(root == null) return result;
+        levelOrder(root,0);
+        return result;
+    }
+    public void levelOrder(TreeNode node, int level){
+        if(node == null) return;
+        if(level == result.size())
+            result.add(node.val);
+        levelOrder(node.right, level+1);
+        levelOrder(node.left,level+1);
+    }
+}
+*/
