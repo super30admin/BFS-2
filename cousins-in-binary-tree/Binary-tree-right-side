@@ -1,0 +1,26 @@
+#time complexity: o(n)
+#space commplexity: o(1)
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        if root is None:
+            return []
+        
+        queue = deque([root, None,])
+        rightside = []
+        
+        curr = root
+        while queue:
+            prev, curr = curr, queue.popleft()
+
+            while curr:
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
+                    
+                prev, curr = curr, queue.popleft()     
+            rightside.append(prev.val)
+            if queue:
+                queue.append(None)
+        
+        return rightside
