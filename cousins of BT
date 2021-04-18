@@ -1,0 +1,140 @@
+// Time Complexity :bfs O(n) dfs- O(n)
+// Space Complexity : bfs O(n) dfs- O(h)
+// Did this code successfully run on Leetcode :
+// Any problem you faced while coding this :
+
+
+// Your code here along with comments explaining your approach
+bfs 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        
+        if(root == null)
+            return false;
+        
+        Queue<TreeNode> bfsQ = new LinkedList<>();
+        bfsQ.add(root);
+        
+        while(!bfsQ.isEmpty())
+        {
+            int size = bfsQ.size();
+             boolean xfound = false; boolean yfound = false;
+            for(int i=0; i<size; i++)
+            {
+                TreeNode curr = bfsQ.poll();
+                if(curr.val == x)
+                    xfound = true;
+                
+                if(curr.val == y)
+                    yfound = true;
+                
+                if(curr.left != null && curr.right != null)
+                {
+                    if(( curr.left.val == x && curr.right.val == y) || ( curr.right.val == x && curr.left.val == y))
+                    return false;
+                }
+                
+               
+                 if(curr.left != null)
+                    bfsQ.add(curr.left);
+                    
+                 if(curr.right != null)
+                    bfsQ.add(curr.right);
+            }
+            if( xfound && yfound)
+                return true; 
+           
+            if( xfound || yfound)
+                return false; 
+        }
+        
+       return false; 
+    }
+}
+
+dfs
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    TreeNode xPar;
+    TreeNode yPar;
+    int xLvl;
+    int yLvl;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        
+        if(root == null)
+            return false;
+        
+        dfs(root, x,y, 0);
+        
+        if( xLvl == yLvl && xPar != yPar)
+            return true;
+        
+        return false;
+    }
+    
+    private void dfs(TreeNode root, int x, int y, int lvl)
+    {
+        //base
+        if(root == null)
+            return;
+        
+        //logic
+        if(root.val == x)
+            xLvl = lvl;
+        
+        if(root.val == y)
+            yLvl = lvl;
+        
+        if(root.left != null)
+        {
+            if(root.left.val == x)
+                xPar = root;
+        
+            if(root.left.val == y)
+                yPar = root;
+        }
+        
+        if(root.right != null)
+        {
+            if(root.right.val == x)
+                xPar = root;
+        
+            if(root.right.val == y)
+                yPar = root;
+        }
+        
+        dfs(root.left, x, y, lvl+1);
+        dfs(root.right, x, y, lvl+1);
+        
+    }
+}
