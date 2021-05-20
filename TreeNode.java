@@ -99,5 +99,23 @@ public class TreeNode {
         return root;
     }
 
+    //[3,9,20,1,2,4,5]
+    public TreeNode getSampleSix() {
+        TreeNode root = getNode(3);
+        TreeNode node9 = getNode(9);
+        TreeNode node20 = getNode(20);
+        TreeNode node1 = getNode(1);
+        TreeNode node2 = getNode(2);
+        TreeNode node4 = getNode(4);
+        TreeNode node5 = getNode(5);
+        root.left = node9;
+        root.right = node20;
+        node9.left = node1;
+        node9.right = node2;
+        node20.left = node4;
+        node20.right = node5;
+        return root;
+    }
+
 }
 
