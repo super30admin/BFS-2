@@ -1,3 +1,11 @@
+// Time Complexity : O(n) In worst case scenario.
+//                 : O(H) Amortized time complexity - where H is the height of the nodes x & y.
+// Space Complexity: O(n)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
+
+
+// Your code here along with comments explaining your approach
 public class BinaryTreeCousins {
 
     public static class TreeNode {
