@@ -13,7 +13,7 @@ class Solution(object):
         :type x: int
         :type y: int
         :rtype: bool
-        :TC:O(n)
+        :TC:O(h) (h=height)
         :SC:O(n)
         """
         
