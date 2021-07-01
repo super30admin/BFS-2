@@ -51,4 +51,26 @@ of the node. So very first node(i==0) coming out to the queue will go inside the
                 if node.left!=None:
                     q.append(node.left)
 """
+###############################################
+"""
+DFS solution: maintain each level and call dfs recursively, first on right side and then on left
+"""
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        self.result=[]
+        if root==None:
+            return self.result
+
+        self.dfs(root,0)
+        return self.result
+
+
+    def dfs(self,root,level):
+        if(root==None):
+            return
+        if (len(self.result))==level:
+            self.result.append(root.val)
+
+        self.dfs(root.right, level+1)
+        self.dfs(root.left, level+1)
 
