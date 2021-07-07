@@ -1,0 +1,133 @@
+PROBLEM 1 - 
+// Time Complexity :O(n)
+// Space Complexity :O(n)
+// Did this code successfully run on Leetcode :Yes
+ 
+class Solution {
+    func isCousins(_ root: TreeNode?, _ x: Int, _ y: Int) -> Bool {
+        var depth: [Int:Int] = [:]
+        var parent: [Int:TreeNode] = [:]
+        
+        bfs(root, &depth, &parent)
+        //dfs(root, nil, &depth, &parent)
+        
+        return depth[x] == depth[y] && parent[x]?.val != parent[y]?.val
+    }
+    
+    private func dfs(_ node: TreeNode?, _ par: TreeNode?, _ depth: inout [Int:Int], _ parent: inout [Int:TreeNode]) {
+        guard let node = node else { return }
+        if let par = par {
+            depth[node.val] = depth[par.val]! + 1
+        } else {
+            depth[node.val] = 0
+        }
+        if let par = par {
+            parent[node.val] = par
+        }
+        dfs(node.left, node, &depth, &parent)
+        dfs(node.right, node, &depth, &parent)
+    }
+    
+    private func bfs(_ root: TreeNode?, _ depth: inout [Int:Int], _ parent: inout [Int:TreeNode]) {
+        guard let root = root else { return }
+        var queue: [TreeNode] = [root]
+        var level = 0
+        while !queue.isEmpty {
+            let size = queue.count
+            for i in 0..<size {
+                let node = queue.removeFirst()
+                depth[node.val] = level
+                if let left = node.left {
+                    parent[left.val] = node
+                    queue.append(left)
+                }
+                if let right = node.right {
+                    parent[right.val] = node
+                    queue.append(right)
+                }
+            }
+            level += 1
+        }
+    }
+}
+
+
+PROBLEM 2 -
+// Time Complexity :O(n*2)
+// Space Complexity :O(n)
+// Did this code successfully run on Leetcode :Yes
+
+class Solution {
+    func orangesRotting(_ grid: [[Int]]) -> Int {
+        let rows = grid.count, cols = grid[0].count 
+        guard rows != 0, cols != 0 else { return -1 }
+		
+        var fresh = 0
+        var rottings = [(Int,Int)]()
+        var grid = grid
+        
+        for row in 0..<rows {
+            for col in 0..<cols {
+                if grid[row][col] == 1 { fresh += 1}
+                if grid[row][col] == 2 { 
+                    rottings.append((row,col)) 
+                    grid[row][col] = 0 
+                }
+            }
+        }
+        if fresh == 0 { return 0 }
+        
+        var minutes = 0
+        while rottings.count != 0, fresh != 0 {
+            let count = rottings.count 
+            minutes += 1
+            for _ in 0..<count {
+                let (row,col) = rottings.removeFirst()
+                
+                if row-1 >= 0, grid[row-1][col] == 1 {
+                    rottings.append((row-1, col))
+                    grid[row-1][col] = 0
+                    fresh -= 1
+                }
+                if row+1 < rows, grid[row+1][col] == 1 {
+                    rottings.append((row+1, col))
+                    grid[row+1][col] = 0
+                    fresh -= 1
+                }
+                if col-1 >= 0, grid[row][col-1] == 1 {
+                    rottings.append((row, col-1))
+                    grid[row][col-1] = 0
+                    fresh -= 1
+                }
+                if col+1 < cols, grid[row][col+1] == 1 {
+                    rottings.append((row, col+1))
+                    grid[row][col+1] = 0
+                    fresh -= 1
+                }
+            }    
+        }
+        return fresh == 0 ? minutes : -1 
+    }
+}
+
+
+PROBLEM 3 -
+// Time Complexity :O(n*2)
+// Space Complexity :O(n)
+// Did this code successfully run on Leetcode :Yes
+
+class Solution {    
+    func getImportance(_ employees: [Employee], _ id: Int) -> Int {
+        var employeeMap = employees.reduce(into: [:]) { $0[$1.id] = (subs: $1.subordinates, imp: $1.importance) }
+        
+        var totalImportance = employeeMap[id]?.imp ?? 0
+        var subs = employeeMap[id]?.subs ?? []
+        
+        while let nextSub = subs.popLast() {
+            totalImportance += employeeMap[nextSub]!.imp
+            subs += employeeMap[nextSub]!.subs
+        }
+        
+        return totalImportance
+    }
+}
