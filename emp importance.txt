@@ -1,0 +1,100 @@
+"""
+# Employee info
+class Employee(object):
+    def __init__(self, id, importance, subordinates):
+    	#################
+        :type id: int
+        :type importance: int
+        :type subordinates: List[int]
+        #################
+        # It's the unique id of each node.
+        # unique id of this employee
+        self.id = id
+        # the importance value of this employee
+        self.importance = importance
+        # the id of direct subordinates
+        self.subordinates = subordinates
+"""
+#TC=O(n+edges), SC=O(n)+O(1) #Queue and hashmap
+#input is list of employee objects
+
+class Solution(object):
+    result=0
+    def getImportance(self, employees, id):
+        """
+        :type employees: List[Employee]
+        :type id: int
+        :rtype: int
+        """
+        if employees==[] or len(employees)==0: return 0;
+        listid=[]
+        listdetails=employees
+        for e in employees:
+            listid.append(e.id)
+        hashmap = dict(zip(listid, listdetails)) 
+        
+        self.helper(hashmap, id)
+        return self.result
+    
+    def helper(self, hashmap, id):
+        
+        x=hashmap.get(id)
+        print x.importance
+        self.result+=x.importance
+        print x.subordinates
+        for sid in x.subordinates:
+            self.helper(hashmap,sid)
+        #return result
+            
+            
+--------------------------------------------------------
+"""
+# Employee info
+class Employee(object):
+    def __init__(self, id, importance, subordinates):
+    	#################
+        :type id: int
+        :type importance: int
+        :type subordinates: List[int]
+        #################
+        # It's the unique id of each node.
+        # unique id of this employee
+        self.id = id
+        # the importance value of this employee
+        self.importance = importance
+        # the id of direct subordinates
+        self.subordinates = subordinates
+"""
+#TC=O(n+edges), SC=O(n)+O(1) #Queue and hashmap
+#input is list of employee objects
+
+class Solution(object):
+    def getImportance(self, employees, id):
+        """
+        :type employees: List[Employee]
+        :type id: int
+        :rtype: int
+        """
+        if employees==[] or len(employees)==0: return 0;
+        listid=[]
+        listdetails=employees
+        for e in employees:
+            listid.append(e.id)
+        #print listid    
+        #listdetails=e #self?
+        hashmap = dict(zip(listid, listdetails)) 
+        #print res
+        q=[] #queue
+        q.append(id)
+        result=0
+        while(q!=[]):
+            eid=q.pop(0)
+            x=hashmap.get(eid)
+            print x.importance
+            result+=x.importance
+            print x.subordinates
+            for sid in x.subordinates:
+                q.append(sid)
+        return result
+            
+            
