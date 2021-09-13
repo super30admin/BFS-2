@@ -1,0 +1,55 @@
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+// Did this code successfully run on Leetcode :
+// Any problem you faced while coding this : A few test cases were not passed
+
+
+// Your code here along with comments explaining your approach
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+var isCousins = function(root, x, y) {
+      let queue=[];
+    
+    queue.push(root);
+    
+    while(queue.length){
+        let sibling= false;
+        let cousins=false;
+        let level= queue.length;
+        
+        for(i=0;i<level;i++){
+            let node=queue.pop();
+            if (node===null){
+                sibling=false;
+            }
+            else{
+                if(node.val===x || node.val===y){
+                    if (!cousins) {
+                            sibling = cousins = true;
+                }
+                    else{
+                        return !sibling;
+                    }
+            }
+            if(node.left!=null) queue.push(node.left)
+                if(node.right!=null) queue.push(node.right)
+                      queue.push(null);
+        }
+        }
+    if(cousins) return false
+    }
+ return false;   
+};

@@ -1,0 +1,78 @@
+// Time Complexity : O(n)
+// Space Complexity : O(h)
+// Did this code successfully run on Leetcode :Yes
+// Any problem you faced while coding this :
+
+
+// Your code here along with comments explaining your approach
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function(root) {
+    //Solution 1: Implementing BFS with queue;
+//     if(root==null)
+//     {
+//         return [];
+//     }
+    
+//     let newQueue = [root];
+//     let result = [];
+    
+//     while(newQueue.length!=0)
+//     {
+//         let queueSize = newQueue.length;
+//         let i = 0;
+//         while(i < queueSize)
+//         {
+//             let current = newQueue.shift();
+//             i+=1;
+            
+//             //look for the first element in the queue
+//             if(i == 1)
+//             {
+//                 result.push(current.val);
+//             }
+            
+//             //pushing right child first
+//             if(current!=null && current.right!=null)
+//             {
+//                 newQueue.push(current.right);
+//             }
+            
+//             //and then left child
+//             if(current!=null && current.left!=null)
+//             {
+//                 newQueue.push(current.left);
+//             }
+//         }
+//     }
+    
+    // return result;
+    
+    
+    //Solution 2: recurssion
+    
+    let res=[];
+    function traverse(node,depth){
+        if(!node){
+            return;
+        }
+        if(!res[depth]){
+            res[depth]=node.val;
+        }
+        traverse(node.right,depth+1);
+         traverse(node.left,depth+1);
+    }
+  traverse(root,0)  
+   return res 
+};
