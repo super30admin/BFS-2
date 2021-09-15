@@ -31,4 +31,24 @@ class Solution:
         for each in res:
             ans.append(each[-1])
         return ans
+        
+
+    # DFS
+
+    # class Solution:
+    #     def __init__(self):
+    #     self.res = []
+    
+    # def rightSideView(self, root: TreeNode) -> List[int]:
+    #     if not root: return []
+    #     self.dfs(root,0)
+    #     return self.res
+    
+    # def dfs(self,root,level):
+    #     if not root: return None
+        
+    #     if len(self.res) == level:
+    #         self.res.append(root.val)
+    #     right = self.dfs(root.right,level+1)
+    #     left = self.dfs(root.left,level+1)
                 
