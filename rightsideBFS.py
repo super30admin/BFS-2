@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 # TC O(n)
 # SC O(n)
 class Solution(object):
@@ -21,6 +22,8 @@ class Solution(object):
             size = len(queue)
             for i in range(size):
                 cur = queue.popleft()
+                
+                # Add last element from the all the nodes present at a level
                 if i == size - 1:
                     result.append(cur.val)
                 if cur.left is not None:
@@ -31,3 +34,4 @@ class Solution(object):
         
                     
             
+        
