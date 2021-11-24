@@ -1,0 +1,44 @@
+//TC:- O(n)
+//SC:- O(n) Recursive stack
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    List<Integer> rightview;
+    public List<Integer> rightSideView(TreeNode root) {
+        
+        rightview = new ArrayList<>();
+        
+        bfs(root, 0);
+        
+        return rightview;
+        
+    }
+    
+    private void bfs(TreeNode root, int level)
+    {
+        if(root == null)
+            return;
+        
+        if(rightview.size() == level)
+        {
+            rightview.add(root.val);
+        }
+        
+        bfs(root.right, level+1);
+        bfs(root.left, level+1);
+    }
+}
