@@ -1,0 +1,70 @@
+//DFS
+class Solution {
+    TreeNode x_parent, y_parent;
+    int x_level, y_level;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if(root == null) return false;
+        dfs(root, x, y, 0, null);
+        return x_parent != y_parent && x_level == y_level;
+    }
+    private void dfs(TreeNode root, int x, int y, int lvl, TreeNode parent){
+        
+        //base
+        if(root == null) {
+            return;
+        }
+        
+        //logic
+        if(root.val == x){
+            x_parent = parent;
+            x_level = lvl;
+        }
+        if(root.val == y){
+            y_parent = parent;
+            y_level = lvl;
+        }
+        dfs(root.left, x, y, lvl+1, root);
+        dfs(root.right, x, y, lvl+1, root);
+    }
+}
+
+//BFS
+
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if(root == null) return false;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int size = q.size();
+            boolean x_found = false, y_found = false;
+            for(int i=0 ;i<size;i++){
+                TreeNode curr = q.poll();
+                if(curr.val == x){
+                    x_found = true;
+                }
+                if(curr.val == y){
+                    y_found = true;
+                }
+                if(curr.left!=null && curr.right !=null && curr.left.val == x && curr.right.val == y){
+                    return false;
+                }
+                if(curr.left!=null && curr.right !=null && curr.right.val == x && curr.left.val == y){
+                    return false;
+                }if(curr.left!=null){
+                    q.add(curr.left);
+                }
+                if(curr.right!=null){
+                    q.add(curr.right);
+                }
+            }
+            if(x_found == true && y_found ==true){
+                return true;
+            }
+            if(x_found || y_found){
+                return false;
+            }
+        }
+        return false;
+    }
+}
