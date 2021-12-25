@@ -38,3 +38,38 @@ class Solution {
         return result;
     }
 }
+
+
+/*
+Time Complexity : O(n)
+Space Complexity : O(n)
+ Did this code successfully run on Leetcode :yes
+Any problem you faced while coding this : no
+
+ Approach using DFS
+
+ Same as level order but here we are first going through right side of the tree and adding into the result array
+*/
+
+class Solution {
+    List<Integer> result = new ArrayList<>();
+    public List<Integer> rightSideView(TreeNode root) {
+        result = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        if(root == null){
+            return result;
+        }
+        dfs(root , 0);
+        return result;
+    }
+    void dfs(TreeNode root , int level){
+            if(root == null){
+                return;
+            }
+            if(level == result.size()){
+                result.add(root.val);
+            }
+            dfs(root.right, level+1);
+            dfs(root.left, level+1);
+        }
+    }
