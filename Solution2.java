@@ -50,10 +50,16 @@ class Solution {
                 if(node.right!=null){
                     q.add(node.right);
                 }
+                if(xFound && yFound){
+                    return true;
+                }
             }
             // after each level if s and y are found means they exist at same level
             if(xFound && yFound){
                 return true;
+            }
+            if(xFound || yFound){
+                return false;
             }
         }
         return false;
@@ -85,6 +91,9 @@ private void dfs(TreeNode root, int level, int x,int y){
 if(root==null)
     return;
 
+if(xparent!=null && yparent!=null){
+    return;
+}
     
 //logic
 // if x is found as the child of root, set the parent and one level more than the parent
