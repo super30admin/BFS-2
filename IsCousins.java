@@ -1,3 +1,5 @@
+//Time Complexity: O(n)
+//Space Complexity: O(n)
 public class IsCousins {
     public boolean isCousins(TreeNode root, int x, int y) {
         Queue<TreeNode> bfs = new LinkedList<>();
