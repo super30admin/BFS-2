@@ -1,5 +1,5 @@
 // Time Complexity : O(n)
-// Space Complexity : O(n/2)
+// Space Complexity : O(n)
 // Did this code successfully run on Leetcode : yes
 // Any problem you faced while coding this : no
 
@@ -29,6 +29,10 @@ var isCousins = function (root, x, y) {
     if (root.val === y) {
       yLevel = level;
       yParent = parent;
+      return;
+    }
+    // if clause adds additional optimization to not traverse further if both x and y have been found
+    if (xLevel && yLevel) {
       return;
     }
 
