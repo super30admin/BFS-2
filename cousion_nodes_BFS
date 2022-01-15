@@ -1,0 +1,95 @@
+// Time Complexity : O(n)
+// Space Complexity : O(n)
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        
+        // queue to apply BFS
+        Queue<TreeNode> q =  new LinkedList<>();
+        
+        // add root node
+        q. add(root);
+        
+        int size = 0;
+        
+       
+        
+        // Iterate through each element using BFS
+        while (! q.isEmpty()){
+            
+            // Size of the queue
+            size = q.size();
+            
+            boolean xfound =  false;
+            boolean yfound =  false;
+        
+            for (int i = 0; i < size; i++){
+                
+                // Curr element
+                TreeNode curr =  q.poll();
+
+                if (curr.left != null && curr.right != null) {
+
+                    // cousion nodes cant have same parent
+                    if (curr.left.val == x && curr.right.val == y ){
+                        return false;
+                    }
+
+                    if (curr.left.val == y && curr.right.val == x ){
+                        return false;
+                    }
+                
+                }
+                
+                // check if x and y are in same level
+                // add child nodes only if they can be a possibility to be cousin.
+                
+                if (curr.val == x){
+                    xfound = true;
+                }
+                
+                if (curr.val == y){
+                    yfound = true;
+                }
+                
+                // add child nodes for next iteration of while (Next level)
+                
+                // left child node
+                if (curr.left != null){
+                    q.add(curr.left);
+                }
+                
+                // right child node
+                if (curr.right != null){
+                    q.add(curr.right);
+                }
+                
+                
+            }
+          
+            // In successful scenario : both cousion nodes are found
+            if (xfound && yfound){
+                return true;   
+            }
+        }
+        
+        // not cousions
+        return false;
+        
+    }
+}
