@@ -1,0 +1,102 @@
+2 solutions
+// Time Complexity : O(n)
+// Space Complexity : O(queue size)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
+
+
+// Your code here along with comments explaining your approach
+
+Cousins are those nodes which are on the same level of a tree but not from the same parent
+so, we can use BFS traversal technique here, but as we know cousins cant be from same parent, we check if left and right of root we are processing are equalling a and y, if yes we dont d them and return false, if not we add them. if ths root.val is x or y, we check and st flag. we iterate till we finish the size of queue. if we find both x and y we are done. if we find only one that means other one is not in this level so we return false.(this we we save traversing all below nodes)
+we can be sure that we are not coming accross the sibings in same level, because we were checking it in the begining and not entering siblings in que and returning false staightaway.
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+//BFS solution
+// class Solution {
+   
+//     public boolean isCousins(TreeNode root, int x, int y) {
+//         if(root==null) return false;
+//          Queue<TreeNode> queue = new LinkedList<>();
+      
+//         queue.add(root);
+//         while(!queue.isEmpty()){
+//         boolean findX=false;
+//         boolean findY=false;
+//             int size = queue.size();
+//             for(int i=0; i<size; i++){
+               
+//                 TreeNode cur = queue.poll();
+//                 if(cur.val==x){
+//                     findX=true;
+//                 }
+//                 if(cur.val==y){
+//                     findY=true;
+//                 }
+//               if(cur.left!=null && cur.right!=null){
+//                   if(cur.left.val==x && cur.right.val==y) return false;
+                  
+//                   if(cur.right.val==x && cur.left.val==y ) return false;
+//               }
+//                 if(cur.left!=null){
+//                     queue.add(cur.left);
+//                 }
+//                  if(cur.right!=null){
+//                     queue.add(cur.right);
+//                 }
+                
+//                 if (findX && findY) return true;
+               
+//             }
+//              if(findX || findY) return false;
+//         }
+//         return false;
+//     }
+// }
+
+//DFS solution
+//height of x and y should be same and parent should be different thats the answer
+class Solution {
+    TreeNode x_parent, y_parent;
+        int x_depth, y_depth;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if(root==null) return false;
+       dfs(root, 0, null, x, y);
+        return (x_depth == y_depth) && (x_parent != y_parent);
+    }
+        
+        public void dfs(TreeNode root, int depth, TreeNode parent, int x, int y){
+        
+        if(root == null) return;
+        
+        if(root.val==x){
+            x_parent = parent;
+            x_depth=depth+1;
+        }
+        if(root.val==y){
+            y_parent = parent;
+            y_depth = depth+1;
+        }
+        //this will run only if we r yet to fullfill any condition, this way we save unnecessary traversal after findin g the answer
+            if(x_depth!=y_depth || x_parent==y_parent){
+        dfs(root.left, depth+1, root, x, y);
+            }
+             if(x_depth!=y_depth || x_parent==y_parent){
+        dfs(root.right, depth+1, root, x, y);
+            }
+        
+    }
+}

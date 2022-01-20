@@ -1,0 +1,101 @@
+3 solutions
+
+// Time Complexity : O(n)
+// Space Complexity : O(stack height)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
+
+
+// Your code here along with comments explaining your approach
+This is BFS, you atsrt with a que, at each level u wouyld be noting size and while popping, u check if it has hit the last element of that level which is at size-1 th element, if u find it u add it to the result and return result in end.
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if(root==null) return result;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        
+        while(!queue.isEmpty()){
+            int size = queue.size();
+          
+            for(int i=0; i<size; i++){
+                  TreeNode cur = queue.poll();
+                if(i==size-1){
+                    result.add(cur.val);
+                }
+                if(cur.left!=null){
+                    queue.add(cur.left);
+                }
+                
+                if(cur.right!=null){
+                    queue.add(cur.right);
+                }
+            }
+        }
+        
+        return result;
+    }
+}
+
+
+solution 2:
+
+//Solution using DFS starting from left and replacing values at each level as we want final values from rightmost side
+class Solution {
+     List<Integer> result = new ArrayList<>();
+    public List<Integer> rightSideView(TreeNode root) {
+       
+        if(root==null) return result;
+        dfs(root,0);
+        return result;
+    }
+    public void dfs(TreeNode root, int level){
+        if(root==null) return;
+        if(level==result.size()){
+            result.add(root.val);
+        }else{
+            result.set(level, root.val);
+        }
+        dfs(root.left, level+1);
+        dfs(root.right, level+1);
+      
+    }
+}
+
+
+Solution 3:
+//We start from right and whenever we reach any level for the first time we enter the root.val there
+class Solution {
+     List<Integer> result = new ArrayList<>();
+    public List<Integer> rightSideView(TreeNode root) {
+       
+        if(root==null) return result;
+        dfs(root,0);
+        return result;
+    }
+    public void dfs(TreeNode root, int level){
+        if(root==null) return;
+        if(level==result.size()){
+            result.add(root.val);
+        }
+        
+        dfs(root.right, level+1);
+        dfs(root.left, level+1);
+    }
+}
+
