@@ -18,7 +18,7 @@ class Solution:
         result = []
         
         def dfs(root, level):
-            #If elements in result array and depth are same, we add that root's value to result array.
+            #if elements in result array and depth are same, we add that root's value to result array.
             if level == len(result):
                 result.append(root.val)
                 

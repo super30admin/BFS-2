@@ -18,15 +18,15 @@ class Solution:
 
         # dfs
         def dfs(node, parent, depth):
-            # If we're at a leaf or we've already found both of x and y
+
             if not node:
                 return
 
-            # If we find x or y record the parent and level info.
+            # if we find x or y record the parent and level info.
             if node.val == x or node.val == y:
                 result.append((parent, depth))
 
-            # Traverse left and right subtrees.
+            # traverse left and right subtrees.
             dfs(node.left, node, depth + 1)
             dfs(node.right, node, depth + 1)
 
