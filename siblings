@@ -1,0 +1,34 @@
+//counsins in tree
+//time: O(N)
+//space : O(H)
+
+
+
+
+class Solution {
+    TreeNode x_parent;
+    TreeNode y_parent;
+    int dep_x;
+    int dep_y;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if(root==null)
+            return false;
+        dfs(root,null,x,y,0);
+        return(x_parent!=y_parent && dep_x==dep_y);
+    }
+    
+    public void dfs(TreeNode root,TreeNode parent,int x,int y,int depth){
+        if(root==null)
+            return;
+        dfs(root.right,root,x,y,depth+1);
+        if(root.val==x){
+            x_parent = parent;
+            dep_x = depth;
+        }
+        if(root.val==y){
+            y_parent = parent;
+            dep_y = depth;
+        }
+        dfs(root.left,root,x,y,depth+1);
+    }
+}
