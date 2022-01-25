@@ -1,0 +1,73 @@
+
+
+//Time complexity : O(N)
+//Space complexity: O(D) diameter of the tree
+
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> li = new ArrayList<>();
+        if (root == null) {
+            return li;
+        }
+        Queue<TreeNode> que = new LinkedList<>();
+        que.add(root);
+        while(!que.isEmpty()) {
+            int size = que.size();
+            while  (size > 0) {
+              TreeNode node = que.poll();
+                   if (size == 1){
+                       li.add(node.val);
+            }
+               // TreeNode node = que.poll();
+         
+                if (node.left != null) {
+                    que.add(node.left);
+                }
+                
+                if (node.right != null){
+                    que.add(node.right);
+                }
+                size --;
+            }
+        }
+        return li;
+    }
+}
+
+
+
+//Time Complexity : O(N)
+//Space complexity : O(N)
+
+class Solution {
+    class NodeHeight{
+        int height;
+        int val;
+        TreeNode parent;
+        NodeHeight(int height,int val){
+            this.height=height;
+            this.val=val;
+        }
+    }
+    public void areCousins(TreeNode root, NodeHeight xH, NodeHeight yH,int level,TreeNode parent){
+        if(root==null)return;
+        if(root.val==xH.val){
+            xH.height=level;
+            xH.parent=parent;
+        }
+        if(root.val==yH.val){
+            yH.height=level;
+            yH.parent=parent;
+        }
+        areCousins(root.left,xH,yH,level+1,root);
+        areCousins(root.right,xH,yH,level+1,root);
+         
+    }
+    public boolean isCousins(TreeNode root, int x, int y) {
+        NodeHeight xH=new NodeHeight(0,x);
+        NodeHeight yH=new NodeHeight(0,y);
+        areCousins(root,xH,yH,1,null);
+        return (xH.height > 0 && xH.height==yH.height && xH.parent!=yH.parent);
+    }
+}
