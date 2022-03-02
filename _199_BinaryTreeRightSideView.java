@@ -1,7 +1,7 @@
 
 class Solution {
   // Time Complexity : o(n) n = number of nodes
-  // Space Complexity :  o(n) n = number of nodes
+  // Space Complexity :  o(D) d = diameter of tree
   // Did this code successfully run on Leetcode : Yes
   // Any problem you faced while coding this : No
 
