@@ -1,0 +1,34 @@
+class Solution {
+    
+    private TreeNode xParent, yParent;
+    private int xLevel, yLevel;
+    public int x, y;
+   
+    public boolean isCousins(TreeNode root, int x, int y) {
+       
+        xParent = yParent = null;
+        this.x = x;
+        this.y = y;
+        isCousins(root, null,0); 
+        
+        return xLevel == yLevel && xParent != yParent;
+    }
+    
+    private void isCousins(TreeNode node, TreeNode parent, int level){
+        if(node == null){
+            return;
+        }
+        
+        if(node.val == x){
+            xLevel = level;
+            xParent = parent;
+        }
+        if(node.val == y){
+            yLevel = level;
+            yParent = parent;
+        }
+        
+        isCousins(node.left, node, level+1);
+        isCousins(node.right, node, level+1);
+    }
+}
