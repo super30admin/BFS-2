@@ -13,6 +13,11 @@
  *     }
  * }
  */
+
+//Time Complexity: O(n)
+//Space Complexity: O(n)
+//didn't face any problems
+//runs successfully
 // class Solution {
 
 //     private TreeNode xParent , yParent;
