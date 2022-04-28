@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class CousinsDFS {
+public class CousinsBFS {
 
     // TC: O(n) n - number of nodes in tree
     // SC: O(n)  since in the worst case we'll be storing n nodes in a queue
