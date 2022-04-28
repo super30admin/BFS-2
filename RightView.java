@@ -38,6 +38,8 @@ public class RightView {
             int size = queue.size();
             for(int i=0; i < size; i++) {
                 TreeNode temp = queue.poll();
+
+                // This condition will be true only of the current node is the right most node at that level
                 if(i == size - 1) {
                     result.add(temp.val);
                 }
