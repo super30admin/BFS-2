@@ -1,3 +1,5 @@
+//time:O(n)
+//space:O(h)
 class Solution {
     private List<Integer> result;
     public List<Integer> rightSideView(TreeNode root) {
