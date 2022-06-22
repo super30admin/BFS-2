@@ -172,7 +172,7 @@ class Solution {
     }
 }
 
-//****COUSINS IN BST-DFS APROACH****
+//****COUSINS IN BST-BFS APROACH****
 //Time complexity:o(n);
 //Space complexity: o(n); 
 //Leetcode runnable:Y;
