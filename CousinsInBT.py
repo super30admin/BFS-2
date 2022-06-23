@@ -77,5 +77,6 @@ class Solution(object):
                     if curr.left.val==x and curr.right.val==y: return False
                     if curr.left.val==y and curr.right.val==x: return False
             if x in temp and y in temp: return True
-        return False
+            if x in temp and y not in temp: return False
+            if y in temp and x not in temp:return False
 '''
