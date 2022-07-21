@@ -1,0 +1,20 @@
+class Solution:
+    #timeComplexity:O(n); spaceComplexity:O(n)
+    
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if root == None:
+            return [];
+        result = [];
+        queue = [root];
+        while(queue):
+            size = len(queue);
+            for i in range(0,size):
+                curr = queue.pop(0);
+                if(curr.left):
+                    queue.append(curr.left)
+                if(curr.right):
+                    queue.append(curr.right)
+                if(i == size - 1):
+                    result.append(curr.val);
+        return result;
+        
