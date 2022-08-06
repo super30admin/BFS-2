@@ -43,10 +43,6 @@ class BTRightViewBFS {
              }
          }
          return result;
-
-//       DFS
-        dfs(root, 0);
-        return result;
     }
 
 
