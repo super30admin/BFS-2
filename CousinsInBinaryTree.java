@@ -72,3 +72,46 @@ class Solution {
            dfs(root.right, x,y, depth+1, root);
     }
 }
+
+
+
+
+//TC = O(n)  No of nodes
+//SC = O(n)  width/ Breadth / max width = n/2=>n
+
+
+//BFS
+class Solution {
+
+        
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if(root == null) return false;
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int size = q.size();
+            
+            boolean x_found = false; 
+            boolean y_found = false;
+
+            for(int i=0; i<size; i++){
+                TreeNode curr = q.poll(); 
+                
+                if(curr.val == x) x_found = true; //found an value
+                if(curr.val == y) y_found = true;
+                
+                if(curr.left != null && curr.right != null){
+                    if(curr.left.val == x && curr.right.val == y) return false; // same parent
+                    if(curr.right.val == x && curr.left.val == y) return false; // same parent             
+                 }
+                
+                if(curr.left != null) q.add(curr.left);
+                if(curr.right != null) q.add(curr.right);
+            }
+            if(x_found && y_found) return true;
+            if(y_found || y_found) return false;
+        }
+        return false;
+    }
+}
