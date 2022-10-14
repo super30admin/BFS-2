@@ -1,5 +1,5 @@
-# Time Complexity : BFS - O(n) 
-# Space Complexity : BFS - O(n)
+# Time Complexity : BFS - O(n) , DFS - O(n)
+# Space Complexity : BFS - O(n), DFS - O(h)
 # Did this code successfully run on Leetcode : Yes
 from typing import Optional, List
 from collections import deque
