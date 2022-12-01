@@ -14,7 +14,7 @@
  * }
  */
 //Time complexity is O(N)
-//Space complexity is O(N)
+//Space complexity is O(H) H is height of tree
 class Solution {
     List<Integer> result=new ArrayList();
     public List<Integer> rightSideView(TreeNode root) {
