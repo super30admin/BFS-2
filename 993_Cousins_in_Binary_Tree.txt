@@ -1,0 +1,70 @@
+// Time Complexity : o(n)
+// Space Complexity : o(n)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
+
+
+// Your code here along with comments explaining your approach
+/*
+* The nodes x, y can be cousins if they are at same level but different parents
+* BFS to identify if they are same  level
+* if a node is the parent of both x and y then return false immediately
+* if at a level   node x and node y is found return true
+* */
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        
+        while(!q.isEmpty()){
+            int size = q.size();
+            boolean foundX = false; 
+            boolean foundY = false; 
+            for(int i = 0; i < size; i++){
+                TreeNode node = q.poll();
+                if(node.val == x){
+                    foundX = true; 
+                }
+                if(node.val == y){
+                    foundY = true;  
+                }
+                
+                if(foundX && foundY) return true;
+                if(node.left!=null && node.right!=null ){
+                    if(node.left.val == x && node.right.val == y){
+                        return false; 
+                    }
+                    if(node.left.val == y && node.right.val == x){
+                        return false; 
+                    }
+                }
+                
+                if(node.left!=null){
+                    q.add(node.left);
+                }
+                if(node.right!=null){
+                    q.add(node.right);
+                }
+            }
+        }
+        return false; 
+    }
+}
