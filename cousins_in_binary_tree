@@ -1,0 +1,42 @@
+// Time Complexity : O(N)
+// Space Complexity : O(1)
+// Did this code successfully run in leetcode : Yes
+// Any problems faced : No
+// cousins --> parents should not be equal and level should be same
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* parentX = NULL;
+    TreeNode* parentY = NULL;
+    int depthX = -1;
+    int depthY = -1;
+    bool isCousins(TreeNode* root, int x, int y) {
+        dfs(root, x, y, 0, NULL);
+        return parentX != parentY && depthX == depthY;
+    }
+
+    void dfs(TreeNode* root, int x, int y, int depth, TreeNode* parent) {
+        if(root == NULL) return;
+        if(root -> val == x) {
+            parentX = parent;
+            depthX = depth;
+        }
+        if(root -> val == y) {
+            parentY = parent;
+            depthY = depth;
+        }
+        dfs(root -> left, x, y, depth + 1, root);
+        dfs(root -> right, x, y, depth + 1, root);
+    }
+};
