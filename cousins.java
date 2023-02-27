@@ -1,5 +1,5 @@
-//time complexity : O(m*n)
-//space complexity : O(m*n)
+//time complexity : O(n)
+//space complexity : O(n)
 
 /**
  * Definition for a binary tree node.
