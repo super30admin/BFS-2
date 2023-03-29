@@ -46,5 +46,3 @@ class Solution:
         ans.append(temp[-1])
         return ans
 
-
-
