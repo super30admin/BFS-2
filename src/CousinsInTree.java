@@ -7,65 +7,51 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-class Pair {
-    private TreeNode cur;
-    private int parent;
-    Pair(TreeNode cur, int parent) {
-        this.cur = cur;
-        this.parent = parent;
-    }
-    public TreeNode getCur() {return cur;}
-    public int getParent() {return parent;}
-}
-
 public class CousinsInTree {
 
 // ****************************** Using BFS Approach ******************************
+
     private TreeNode xParent, yParent;
-    private int xLevel, yLevel;
-    private int x, y;
-
+    
     public boolean isCousins(TreeNode root, int x, int y) {
-        Queue<Pair> q = new LinkedList<>();
-        q.add(new Pair(root, 0));
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        
         while(!q.isEmpty()) {
+            
             int size = q.size();
-
             boolean foundX = false, foundY = false;
-            int parentX = 0, parentY = 0;
-
+            
             while(size-- > 0) {
+                
+                TreeNode node = q.poll();
 
-                Pair p = q.remove();
-                TreeNode node = p.getCur();
-
-                // process
-                if(node.val == x) {
+                if(node.val == x) {                                                    // if node value is x
                     foundX = true;
-                    parentX = p.getParent();
                 }
-                if(node.val == y) {
+                if(node.val == y) {                                                    // if node value is y
                     foundY = true;
-                    parentY = p.getParent();
                 }
-
-                if(foundX && foundY)                                                 // both found in same level then break
-                    break;
-                if(node.left != null && node.right != null) {                        // same parent
-                    if(node.left.val == x && node.right.val == y) return false;
-                    if(node.left.val == y && node.right.val == x) return false;
+                if(node.left != null && node.right != null) {                          // if ndode has both left and right children
+                    if(node.left.val == x && node.right.val == y) return false;        // both children having x and y values
+                    if(node.left.val == y && node.right.val == x) return false;        // then siblings, not cousins
                 }
-
-                // add left
-                if(node.left != null) q.add(new Pair(node.left, node.val));
-                // add right
-                if(node.right != null) q.add(new Pair(node.right, node.val));
+                if(node.left != null) {                                                // adding left child
+                    q.add(node.left);
+                }
+                if(node.right != null) {                                               // adding right child
+                    q.add(node.right);
+                }
             }
 
-            if(foundX && foundY)                                                     // both found
-                return parentX != parentY;
-            if(foundX || foundY)                                                     // only one of them found
+            if(foundX && foundY) {                                                     // if x and y found but not under same parent, but in same level; then hey are cousins
+                return true;
+            }
+            else if(foundX || foundY) {                                                // if either only x or only y found
                 return false;
+            }
+
         }
         return false;
     }
@@ -74,6 +60,7 @@ public class CousinsInTree {
 
 
 // ****************************** Using DFS Approach ******************************
+//
 //    private TreeNode xParent, yParent;
 //    private int xLevel, yLevel;
 //    private int x, y;
