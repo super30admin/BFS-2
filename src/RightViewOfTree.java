@@ -39,21 +39,21 @@ public class RightViewOfTree {
 
         // NRL
         if(result.size() == level) {
-            result.add(node.val);
+            result.add(node.val);                                       // processing current node
         }
-        rightSideView(node.right, level+1);
-        rightSideView(node.left, level+1);
+        rightSideView(node.right, level+1);                             // recursion for right child first thus no need to update
+        rightSideView(node.left, level+1);                              // recursion for left child
 
 //         // NLR
-//         if(result.size() == level) {
+//         if(result.size() == level) {                                 // processing current node
 //             result.add(node.val);
 //         }
-//         else {
+//         else {                                                       // if this is not a new level, we update the value as we go towards right hand side
 //             result.set(level, node.val);
 //         }
 
-//         rightSideView(node.left, level+1);
-//         rightSideView(node.right, level+1);
+//         rightSideView(node.left, level+1);                           // recursion for left child first thus we need to update values for levels other than the new one
+//         rightSideView(node.right, level+1);                          // recursion for right child
 
     }
 }
