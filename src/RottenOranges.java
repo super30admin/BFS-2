@@ -15,40 +15,40 @@ public class RottenOranges {
         public int orangesRotting(int[][] grid) {
             Queue<Pair<Integer, Integer>> q = new LinkedList<>();
             int m = grid.length, n = grid[0].length;
-            int fresh = 0;
+            int fresh = 0;                                                   // maintaining fresh oranges count
             for(int i=0; i<m; i++) {
                 for(int j=0; j<n; j++) {
-                    if(grid[i][j] == ROTTEN) {
+                    if(grid[i][j] == ROTTEN) {                               // adding all rotten oranges in queue
                         q.add(new Pair(i, j));
                     }
-                    else if(grid[i][j] == FRESH) {
+                    else if(grid[i][j] == FRESH) {                           // maintaining fresh oranges count
                         fresh++;
                     }
                 }
             }
             if(fresh == 0)
                 return 0;
-            int time = 0;
+            int time = 0;                                                    // maintaining time variable
             while(!q.isEmpty()) {
                 Queue<Pair<Integer, Integer>> next = new LinkedList<>();
                 while(!q.isEmpty()) {
-                    Pair<Integer, Integer> pair = q.remove();
+                    Pair<Integer, Integer> pair = q.remove();                // getting rotten oranges' coordinates from queue one by one
                     for(int[] dir : directions) {
-                        int x = pair.getKey() + dir[0];
+                        int x = pair.getKey() + dir[0];           
                         int y = pair.getValue() + dir[1];
-                        if(x>=0 && x<m && y>=0 && y<n) {
-                            if(grid[x][y] == FRESH) {
-                                grid[x][y] = ROTTEN;
-                                fresh--;
-                                next.add(new Pair(x, y));
+                        if(x>=0 && x<m && y>=0 && y<n) {                     // check bounds for coordinates
+                            if(grid[x][y] == FRESH) {                        // if orange is fresh
+                                grid[x][y] = ROTTEN;                         // make it rotten
+                                fresh--;                                     // decrement fresh count
+                                next.add(new Pair(x, y));                    // storing next level coordinates in queue
                             }
                         }
                     }
                 }
                 q = next;
-                time++;
+                time++;                                                      // increment time variable
             }
-            return fresh > 0 ? -1 : time-1;
+            return fresh > 0 ? -1 : time-1;                                  // if any fresh orange left, return -1; o else time-1 as it would have been incremented n last iteration
         }
     }
 }
