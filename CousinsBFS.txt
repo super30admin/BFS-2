@@ -1,0 +1,65 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+ /** Time Complexity - O(N)
+     Space Complexity - O(N)
+  */
+class Solution {
+
+
+    public boolean isCousins(TreeNode root, int x, int y) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+    
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            boolean foundX = false;
+            boolean foundY = false;
+            for (int i=0; i< size; i++) {
+                TreeNode t = queue.poll();
+                if (t.val == x) {
+                    foundX = true;
+                }
+                else if (t.val == y) {
+                    foundY = true;
+                }
+                if (t.left != null && t.right != null) {
+                    if (t.left.val == x && t.right.val == y) {
+                        return false;
+                    }
+                    if (t.left.val == y && t.right.val == x) {
+                        return false;
+                    }
+                }
+                if(t.left != null) {
+                    queue.add(t.left);
+                }
+                if (t.right != null) {
+                    queue.add(t.right);
+                }
+            }
+            if (foundX && foundY) {
+                return true;
+            }
+            if (foundX || foundY) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+
+}
