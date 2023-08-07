@@ -5,7 +5,6 @@
 # Any problem you faced while coding this :
 
 # Your code here along with comments explaining your approach
-    # started copying values backwards, using slow and fast pointer, fast is always one step ahead
 
 
 
