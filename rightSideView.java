@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 class rightSideView{
     public List<Integer> rightsideview(TreeNode root) {
         if(root == null){
