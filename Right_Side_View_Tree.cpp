@@ -36,3 +36,29 @@ public:
      return result;   
     }
 };
+
+/*
+ //dfs solution
+class Solution {
+public:
+    vector<int> result;
+    vector<int> rightSideView(TreeNode* root) {
+        dfs(root, 0);
+        return result;
+        }
+private:
+    void dfs(TreeNode*root, int level){
+        if(root==NULL)return;
+        if(level==result.size()){
+            result.push_back(root->val);
+        }
+       //left view:
+        //dfs(root->left, level+1);
+        //dfs(root->right, level+1);
+        //right view
+        dfs(root->right, level+1);
+        dfs(root->left, level+1);
+    }        
+};
+
+*/
