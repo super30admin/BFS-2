@@ -36,3 +36,37 @@ private:
         dfs(root->right, root, x, y, depth+1);
     }    
 };
+/*
+Conditional recursion:
+class Solution {
+TreeNode* parent_x;
+TreeNode* parent_y;    
+int depth_x;
+int depth_y;    
+public:
+    bool isCousins(TreeNode* root, int x, int y) {
+        dfs(root, NULL, x, y, 0);
+        return (parent_x!=parent_y && depth_x==depth_y);
+    }
+private: 
+    void dfs(TreeNode*root, TreeNode*parent, int x, int y, int depth){
+        //base
+        if(root==NULL)return;
+        //logic
+        if(root->val==x){
+            depth_x=depth;
+            parent_x=parent;
+        }
+        if(root->val==y){
+            depth_y=depth;
+            parent_y=parent;
+        }
+        if(parent_x==NULL || parent_y==NULL){ // here we see if we found x or y, if we havent then only we go for finding them
+            dfs(root->left, root, x, y, depth+1);
+        }
+        if(parent_x==NULL || parent_y==NULL){
+            dfs(root->right, root, x, y, depth+1);
+        }
+    }    
+};
+*/
