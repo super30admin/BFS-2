@@ -70,3 +70,33 @@ private:
     }    
 };
 */
+/*
+ //BFS Solution
+class Solution {
+public:
+    bool isCousins(TreeNode* root, int x, int y) {
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int size = q.size();
+            bool x_found = false;
+            bool y_found = false;
+            for(int i=0;i<size;i++){
+                TreeNode* curr = q.front();
+                q.pop();
+                if(curr->val==x)x_found = true;
+                if(curr->val==y)y_found = true;
+                if(curr->left!=NULL && curr->right!=NULL){
+                    if(curr->left->val==x && curr->right->val==y)return false;
+                    if(curr->left->val==y && curr->right->val==x)return false;
+                }
+                if(curr->left!=NULL)q.push(curr->left);
+                if(curr->right!=NULL)q.push(curr->right);
+            }
+            if(x_found && y_found)return true;
+            if(x_found || y_found)return false;
+        }
+        return true;
+    }
+};
+*/
