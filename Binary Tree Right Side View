@@ -1,0 +1,28 @@
+#time complexity: O(n)
+#space complexity: O(n)
+#did it run on leetcode: yes
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        x = []
+        if root is None:
+           return x
+        q = deque([])
+        q.append(root)
+        while len(q)!=0:
+            q_level = len(q)
+            for i in range(q_level):
+                current = q.popleft()
+                if i ==(q_level-1):
+                    x.append(current.val)
+                if current.left is not None:
+                    q.append(current.left)
+                if current.right is not None:
+                    q.append(current.right)
+        return x 
