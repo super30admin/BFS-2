@@ -40,15 +40,59 @@ x and y are exist in the tree.
 
 
 """
-
+from collections import deque 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 class Solution:
+    """
+    Accepted
+    Time Complexity: O(n)
+    Space Complexity: O(n)
+    
+    Explanation: BFS with a queue and a parent queue.
+    The intuition is that while going throuhg the nodes in each level, we keep track of the parent node.
+    we use a parallel queue to keep track of the parent node.
+    
+    ALgorithm: Nodes should be cousins if they are in the same level and have different parents.
+        check this condition while traversing the tree and maintain the parent nodes if the current node is x or y.
+        check and return the result.
+    
+    """
     def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
-        pass
+        if root is None: return []
+        q = deque()
+        pq = deque()
+        pq.append(None)
+        q.append(root)
+        x_parent = None
+        y_parent = None
+        while len(q) > 0:
+            size = len(q) # size variable for level maintainance
+            for i in range(size): # process each level
+                curr = q.popleft()
+                curr_parent = pq.popleft()
+                if curr.val == x:
+                    x_parent = curr_parent
+                elif curr.val == y:
+                    y_parent = curr_parent
+                if curr.left: 
+                    q.append(curr.left)
+                    pq.append(curr)
+                if curr.right: 
+                    q.append(curr.right)
+                    pq.append(curr)
+            # these two conditions are for the case only one of the nodes is found in a level
+            # so obviously, they are not cousins because they are not in the same level
+            if x_parent and not y_parent:
+                return False
+            if y_parent and not x_parent:
+                return False
+        if x_parent == y_parent: # if found on same level, check if they have the same parent
+            return False
+        return True
 
 LeetCode(PROBLEM, Solution).check()
