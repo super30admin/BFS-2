@@ -1,0 +1,37 @@
+#Cousins in Binary Tree
+
+#TC:O(n)
+#SC:O(h)
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+        def dfs(node, parent, depth, value):
+            if not node:
+                return None
+            
+            if node.val == value:
+                return (parent, depth)
+            
+            left_result = dfs(node.left, node, depth + 1, value)
+            if left_result:
+                return left_result
+            
+            right_result = dfs(node.right, node, depth + 1, value)
+            if right_result:
+                return right_result
+            
+            return None
+
+        # Get the depth and parent of nodes with values x and y
+        x_parent, x_depth = dfs(root, None, 0, x)
+        y_parent, y_depth = dfs(root, None, 0, y)
+
+        # Check if they have the same depth but different parents
+        return x_depth == y_depth and x_parent != y_parent
