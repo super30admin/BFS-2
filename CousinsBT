@@ -1,0 +1,68 @@
+DFS : T.c --> O(n), S.c --> O(h)
+class Solution {
+    int xlvl;
+    int ylvl;
+    TreeNode xparent;
+    TreeNode yparent;
+    public boolean isCousins(TreeNode root, int x, int y) {
+     dfs(root,0,null,x,y);
+     return (xlvl == ylvl) && (xparent != yparent);
+    }
+    private void dfs(TreeNode root, int level, TreeNode parent, int x, int y){
+        if(root == null){
+            return;
+        }
+        if(root.val == x){
+          xparent = parent;
+          xlvl = level;
+        }
+        if(root.val == y){
+          yparent = parent;
+          ylvl = level;
+        }
+        dfs(root.left,level+1,root,x,y);
+        dfs(root.right,level+1,root,x,y);
+    }
+}
+----------------------------------------------------------------------------
+BFS: T.c --> O(n), S.c --> O(n)
+class Solution {    
+    public boolean isCousins(TreeNode root, int x, int y) {      
+      Queue<TreeNode> q = new LinkedList<>();
+      q.add(root);
+      while(!q.isEmpty()){
+        int size = q.size();
+        int xvalue = 0;
+        int yvalue = 0;          
+        for(int i =0; i<size; i++){
+            TreeNode curr = q.poll();
+            if(curr.left != null && curr.right != null){
+                if((curr.left.val == x && curr.right.val == y) ||
+                (curr.left.val == y && curr.right.val == x))
+                {
+                  return false;
+                }
+            }
+            if(curr.val == x){
+              xvalue = 1;
+            }
+            if(curr.val == y){
+              yvalue = 1;
+            }
+            if(curr.left != null){
+                q.add(curr.left);
+            }
+            if(curr.right != null){
+                q.add(curr.right);
+            }
+        }
+        if(xvalue == 1 && yvalue == 1 ){
+            return true;
+        }
+        if(xvalue == 1  || yvalue == 1 ){
+            return false;
+        }
+      }
+    return true; 
+    }    
+}
