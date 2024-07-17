@@ -1,0 +1,83 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if(root == null) return result;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int size =q.size();
+            for(int i =0 ; i<size;i++){
+                TreeNode curr = q.poll();
+                if(i==size-1){
+                    result.add(curr.val);
+                }
+                if(curr.left != null){
+                    q.add(curr.left);
+                }
+                 if(curr.right != null){
+                    q.add(curr.right);
+                }
+            }
+        }
+        return result;
+    }
+}
+
+//------------------------------------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int x_depth;
+        int y_depth;
+        TreeNode x_parent;
+        TreeNode y_parent;
+    public boolean isCousins(TreeNode root, int x, int y) {
+        dfs(root, null , 0,x,y);
+
+        return x_parent != y_parent && x_depth == y_depth;
+        
+    }
+    private void dfs(TreeNode root , TreeNode parent, int level, int x, int y){
+        if(root == null) return;
+
+        if(root.val == x){
+            x_parent = parent ;
+            x_depth = level;
+        }
+        if(root.val == y ){
+            y_parent = parent ;
+            y_depth = level;
+        }
+        dfs(root.left, root, level +1, x, y);
+        dfs(root.right, root, level +1, x, y);
+
+    }
+}
