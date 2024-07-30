@@ -1,0 +1,94 @@
+#Problem 1
+
+BFS
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+from queue import *
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if root == None:
+            return []
+        ret = []
+        q = Queue()
+        q.put(root)
+        while not q.empty():
+            size = q.qsize()
+            for i in range(size):
+                curr = q.get()
+                if i == size - 1:
+                    ret.append(curr.val)
+                if curr.left != None:
+                    q.put(curr.left)
+                if curr.right != None:
+                    q.put(curr.right)
+        return ret
+        
+
+DFS
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if root == None:
+            return []
+        
+        self.ret = []
+        self.dfs(root, 0)
+        return self.ret
+    
+    def dfs (self, root: Optional[TreeNode], level: int) -> int:
+        if root == None:
+            return
+        if len(self.ret) == level:
+            self.ret.append(root.val)
+        else:
+            self.ret[level] = root.val
+        self.dfs(root.left, level + 1)
+        self.dfs(root.right, level + 1)
+
+
+#Problem 2
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
+        if root == None:
+            return False
+        
+        self.x_parent = None
+        self.y_parent = None
+        self.x_lvl = -1
+        self.y_lvl = -1
+        self.dfs(root, None, 0, x, y)
+        return self.x_parent != self.y_parent and self.x_lvl == self.y_lvl
+
+    def dfs(self, root: Optional[TreeNode], parent: Optional[TreeNode],lvl: int, x: int, y: int) -> None:
+        if root == None:
+            return  
+        if root.val == x:
+            self.x_parent = parent
+            self.x_lvl = lvl
+            return
+        if root.val == y:
+            self.y_parent = parent
+            self.y_lvl = lvl
+            return
+        self.dfs(root.left, root, lvl + 1, x, y)
+        self.dfs(root.right, root, lvl + 1, x, y)
+        
