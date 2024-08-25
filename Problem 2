@@ -1,0 +1,32 @@
+Time complexity:o(n)
+Space complexity:O(h)
+
+class Solution 
+{
+    int x_depth;
+    int y_depth;
+    TreeNode parent_x;
+    TreeNode parent_y;
+
+    public boolean isCousins(TreeNode root, int x, int y) 
+    {
+        helper(root,0,null, x, y);
+        return (x_depth == y_depth && parent_x != parent_y);
+    }
+    private void helper(TreeNode root,int depth, TreeNode parent,int x, int y)
+    {
+        if(root == null) return;
+        helper(root.left,depth+1, root,x,y);
+        if(root.val == x)
+        {
+            x_depth = depth;
+            parent_x = parent;
+        }
+        if(root.val == y)
+        {
+            y_depth = depth;
+            parent_y = parent;
+        }
+        helper(root.right,depth+1, root, x,y);
+    }
+}
