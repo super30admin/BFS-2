@@ -1,0 +1,50 @@
+//Time complexity: O(mn); size of the grid
+//space complexity: O(mn): size of the queue can go for total number of rotten oranges in worst case
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        int fresh = 0;
+        Queue<int[]> que = new LinkedList<int[]>();
+          for(int i=0; i<grid.length; i++){
+            for(int j =0; j<grid[0].length; j++){
+                if(grid[i][j] == 1){
+                    fresh++;
+                }
+            }
+        }
+        for(int i=0; i<grid.length; i++){
+            for(int j =0; j<grid[0].length; j++){
+                if(grid[i][j] == 2){
+                    que.add(new int[]{i, j});
+               
+                }
+            }
+        }
+   if(fresh == 0) return 0;
+        int minutes = -1;
+    int[][] dirs = {{-1,0}, {1,0}, {0, -1}, {0, 1}};       
+        while(! que.isEmpty()){
+            int size = que.size();
+             minutes++;
+            for(int i=0; i<size; i++){
+                int[] pair = que.poll();
+                int row = pair[0];
+                int col = pair[1];
+
+                for(int[] dir : dirs){
+                    int r = row + dir[0];
+                    int c = col + dir[1];
+                    
+                    if(r < 0 || c < 0 || r == grid.length || c == grid[0].length || grid[r][c] == 2) continue;    
+                    
+                    if(grid[r][c] == 1){
+                        grid[r][c] = 2;
+                        que.add(new int[]{r, c});
+                        fresh--;
+                    }
+                }
+            }
+        }
+        
+        return fresh == 0 ? minutes : -1;
+    }
+}
