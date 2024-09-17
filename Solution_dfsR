@@ -1,0 +1,38 @@
+"""
+
+Time complexity O(N)
+Space complexity O(N)
+
+Recursive DFS
+"""
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution_dfsR:
+    def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+        self.x_parents=None
+        self.y_parents=None
+        self.xlevel=-1
+        self.ylevel=-1
+        self.dfs(root,None,0,x,y)
+        return self.x_parents!=self.y_parents and self.xlevel ==self.ylevel
+    
+    def dfs(self,root,parent,level,x,y):
+        #base
+        if root is None:
+            return 
+       #logic
+        if root.val==x:
+            self.x_parents=parent
+            self.xlevel=level
+        if root.val==y:
+            self.y_parents=parent
+            self.ylevel=level
+        self.dfs(root.left,root,level+1,x,y)
+        self.dfs(root.right,root,level+1,x,y)       
+        
