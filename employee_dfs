@@ -1,0 +1,37 @@
+#time-n, space-h
+from collections import deque
+"""
+# Definition for Employee.
+class Employee:
+    def __init__(self, id: int, importance: int, subordinates: List[int]):
+        self.id = id
+        self.importance = importance
+        self.subordinates = subordinates
+"""
+
+class Solution:
+    def __init__(self):
+        self.sum=0
+        self.hmap={}
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+       
+        q=deque()
+        temp=0
+        for i in employees:
+            if i.id not in self.hmap.keys():
+                self.hmap[i.id]=i
+            if i.id==id:
+                temp=i
+        self.dfs(temp)
+        return self.sum
+    def dfs(self,root):
+        #base
+        if root is None:
+            return 
+        #logic
+        self.sum+=root.importance
+        for i in root.subordinates:
+            
+            self.dfs(self.hmap[i])
+        
+                
