@@ -1,0 +1,75 @@
+Time Complexity: O(n)
+Space Complexity: O(n)
+Leetcode worked: Yes
+
+//DFS
+
+class Solution {
+    
+    HashMap<Integer, Employee> hm = null;
+    List<Integer> subordinates = null;
+    int result = 0;
+    public int getImportance(List<Employee> employees, int id) {
+    
+        if(employees == null || employees.size() ==0)
+            return 0;
+        
+        hm = new HashMap<>();
+        for(Employee emp : employees)
+        {
+            hm.put(emp.id, emp);
+        }
+        
+        dfs(id);
+        
+        return result;
+    }
+    
+    
+    private void dfs(int id)
+    {
+        Employee emp = hm.get(id);
+        result = result + emp.importance;
+        List<Integer> subordinates = emp.subordinates;
+        for(Integer sub : subordinates)
+        {
+            dfs(sub);
+        }
+  
+    }
+}
+
+
+
+
+
+//BFS 
+class Solution {
+    public int getImportance(List<Employee> employees, int id) {
+        
+        if(employees == null || employees.size() == 0)
+            return 0;
+        
+        int result = 0;
+        
+        HashMap<Integer, Employee> hm = new HashMap<>();
+        for(Employee emp : employees)
+        {
+            hm.put(emp.id, emp);
+        }
+        List<Integer> subs = null;
+        Queue<Integer> q = new LinkedList<>();
+        q.add(id);
+        while(!q.isEmpty()){
+            int emp = q.poll();
+            result = result + hm.get(emp).importance;
+            subs = hm.get(emp).subordinates;
+            for(Integer sb : subs)
+            {
+                q.add(sb);
+            }
+        }
+        
+        return result;
+    }
+}

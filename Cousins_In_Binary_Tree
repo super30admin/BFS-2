@@ -1,0 +1,94 @@
+In BFS apprach, we are checking x_found & y_found 
+
+In DFS apprach, we are checking x_depth & y_depth plus the X-parent & y_parent
+
+for both the solution:
+Time Complexity: O(n)
+Space Complexity: O(n)
+Program run on LeetCode: Yes
+
+//DFS 
+class Solution {
+    int x_depth =0; 
+    int y_depth =0;
+    TreeNode x_parent = null, y_parent = null;
+    
+    public boolean isCousins(TreeNode root, int x, int y) {
+        
+        if(root == null)
+            return false;
+        
+        helper(root, x, y, 0, null);
+        
+        return (x_depth == y_depth) && (x_parent != y_parent);
+        
+    }
+    
+    private void helper(TreeNode root, int x, int y, int depth, TreeNode parent)
+    {
+        if(root == null)
+            return;
+        
+        if(root.val == x)
+        {
+            x_depth = depth;
+            x_parent = parent;
+        }
+        else if(root.val == y)
+        {
+            y_depth = depth;
+            y_parent = parent; 
+        }
+           
+        
+        helper(root.left, x, y, depth +1, root);
+        helper(root.right, x, y, depth +1, root);
+    }
+}
+
+
+//BFS
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        
+        if(root == null)
+            return false;
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        boolean x_found = false;
+        boolean y_found = false;
+        while(!q.isEmpty())
+        {
+            int size = q.size();
+            for(int i=0; i<size; i++)
+            {
+                TreeNode temp = q.poll();
+                if(temp.val == x) x_found = true;
+        
+                if(temp.val == y) y_found = true;
+                
+                if(temp.left != null && temp.right != null)
+                {
+                    if(temp.left.val == x && temp.right.val == y)
+                        return false;
+                    
+                    if(temp.left.val == y && temp.right.val == x)
+                        return false;
+                    
+                }
+                
+                if(temp.left != null)  q.add(temp.left);
+                if(temp.right != null)  q.add(temp.right);
+                
+            }
+            
+            if(x_found && y_found) return true;
+            if(x_found || y_found) return false;
+            
+        }
+    
+       return false;
+        
+    }
+}
