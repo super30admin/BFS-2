@@ -1,0 +1,51 @@
+//TC: o(n)
+//SC: o(h) =  height of tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+            if (root == null) return false;
+
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+
+    while (!queue.isEmpty()) {
+        boolean foundX = false, foundY = false;
+        int levelSize = queue.size();
+
+        for (int i = 0; i < levelSize; i++) {
+            TreeNode node = queue.poll();
+
+            if (node.left != null && node.right != null) {
+                if ((node.left.val == x && node.right.val == y) || (node.left.val == y && node.right.val == x)) {
+                    return false; // They are siblings, not cousins
+                }
+            }
+
+            if (node.val == x) foundX = true;
+            if (node.val == y) foundY = true;
+
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+        }
+
+        if (foundX && foundY) return true; // Found both nodes at the same level
+        if (foundX || foundY) return false; // Found one but not the other at this level
+    }
+    return false;
+    }
+}
