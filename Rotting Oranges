@@ -1,0 +1,125 @@
+/***************
+Time O(m*n)
+Space O(m*n)
+Leetcode yes
+problem took help from online solutions. 
+
+We first calculate all those positions where we have a rotten orange and create a Pair from this which contains i and j values
+for the rotten orange and push it in the queue.
+We also add a null which acts as a anchor point for one time period. So when we see a null we know that time period has ended.
+
+Iterate through the pairs in the queue and make surrounding fresh oranges as rotten with checking that if indexes are valid or
+not.(For ex for top row ,bottom row , first column and last column)
+
+Flag makes sure that we increment ans(which is the result) to be incremented only once during one iteration.
+In the end we again iterate through the grid after we have taken into account every rotten orange. If we encounter a fresh 
+orange during this stage , we return -1 else we return ans.
+
+
+***************/
+
+class Solution {
+    public static class Pair{
+            int i;
+            int j;
+            
+            Pair(int i, int j )
+            {
+                this.i = i;
+                this.j = j;
+            }
+        }
+    public int orangesRotting(int[][] grid) {
+        
+        int m = grid.length;
+        int n = grid[0].length;
+        Queue<Pair> q = new LinkedList<>();
+        
+        // Getting all rotten oranges with their position
+        for(int i=0;i<m ;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j] == 2)
+                    q.add(new Pair(i,j));
+                    
+            }
+        }
+        
+        q.add(null);
+        int ans = 0;
+        
+        while(!q.isEmpty())
+        {
+            boolean flag = false;
+            while(q.peek()!=null)
+            {
+                Pair temp = q.peek();
+                if(isValid(temp.i+1,temp.j, m, n) && grid[temp.i+1][temp.j] == 1)
+                {
+                    if(!flag){
+                    flag = true;
+                    ans++;
+                    }
+                    
+                    grid[temp.i+1][temp.j] = 2;
+                    q.add(new Pair(temp.i+1,temp.j));
+                }
+                
+                if(isValid(temp.i-1,temp.j, m, n) && grid[temp.i-1][temp.j] == 1)
+                {
+                    if(!flag){
+                    flag = true;
+                    ans++;
+                    }
+                    
+                    grid[temp.i-1][temp.j] = 2;
+                    q.add(new Pair(temp.i-1,temp.j));
+                }
+                
+                if(isValid(temp.i,temp.j+1, m, n) && grid[temp.i][temp.j+1] == 1)
+                {
+                    if(!flag){
+                    flag = true;
+                    ans++;
+                    }
+                    
+                    grid[temp.i][temp.j+1] = 2;
+                    q.add(new Pair(temp.i,temp.j+1));
+                }
+                
+                if(isValid(temp.i,temp.j-1, m, n) && grid[temp.i][temp.j-1] == 1)
+                {
+                    if(!flag){
+                    flag = true;
+                    ans++;
+                    }
+                    
+                    grid[temp.i][temp.j-1] = 2;
+                    q.add(new Pair(temp.i,temp.j-1));
+                }
+                q.poll();
+            }
+            
+             q.poll();
+          if(!q.isEmpty()) q.add(null);
+        }
+        
+           for(int i =0; i <m; i++){
+            for(int j =0; j <n; j++){
+                if(grid[i][j] == 1){
+                    ans = -1;
+                    break;
+                }
+            }
+        }
+        
+        return ans;
+        
+    }
+    
+     public static boolean isValid(int i , int j, int m, int n){
+        if(i<0 || j <0|| i>=m || j >=n) return false;
+        return true;
+    }
+}
