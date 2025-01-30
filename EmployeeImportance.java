@@ -27,6 +27,7 @@ public class EmployeeImportance {
         }
     }
 
+    // ------------------------------------------ BFS approach ------------------------------------------
     public int getImportance(List<Employee> employees, int id) {
         int impValue = 0;
 
@@ -54,6 +55,32 @@ public class EmployeeImportance {
 
         return impValue;
     }
+
+    // ------------------------------------------ DFS approach ------------------------------------------
+    HashMap<Integer, Employee> map;
+    public int getImportance2(List<Employee> employees, int id) {
+        map = new HashMap<>();
+        for (Employee e: employees) {
+            map.put(e.id, e);
+        }
+
+        if (!map.containsKey(id)) {
+            return 0;
+        }
+
+        return dfs(id);
+    }
+
+    private int dfs(int id) {
+        Employee e = map.get(id);
+        int imp = e.importance;
+        for (int em: e.subordinates) {
+            imp += dfs(em);
+        }
+
+        return imp;
+    }
+
     public static void main(String[] args) {
         // Your code here
         Employee e1 = new Employee(1, 5, List.of(2,3));
@@ -65,5 +92,9 @@ public class EmployeeImportance {
         int importance = obj.getImportance(emp, 2);
         System.out.println(importance);
         assert (importance == 3);
+
+        importance = obj.getImportance2(emp, 1);
+        System.out.println(importance);
+        assert (importance == 11);
     }
 }
