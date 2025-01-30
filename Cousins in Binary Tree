@@ -1,0 +1,47 @@
+from collections import deque
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
+        if root is None:
+            return False
+
+        q = deque()
+        q.append((root, None))  # Store node along with its parent
+
+        while q:
+            size = len(q)
+            x_found = y_found = False
+            x_parent = y_parent = None
+
+            for _ in range(size):
+                curr, parent = q.popleft()
+
+                if curr.val == x:
+                    x_found, x_parent = True, parent
+                if curr.val == y:
+                    y_found, y_parent = True, parent
+
+                if curr.left:
+                    q.append((curr.left, curr))
+                if curr.right:
+                    q.append((curr.right, curr))
+
+                # Check if x and y are siblings (same parent)
+                if curr.left and curr.right:
+                    if (curr.left.val == x and curr.right.val == y) or (curr.left.val == y and curr.right.val == x):
+                        return False  # They are siblings, not cousins
+
+            if x_found and y_found:
+                return x_parent != y_parent  # Check if parents are different
+
+            if x_found or y_found:
+                return False  # If only one is found, return False
+
+        return False  # If neither is found
