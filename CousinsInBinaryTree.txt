@@ -1,0 +1,54 @@
+class Solution {
+    
+    // Time Complexity - O(n) 
+    // Space Complexity - O(n) the max numof leaf elements n/2 in Binary tree
+    /* 
+        Approach - BST with help of auxilary Queue<Pair> to store the <Parent,Child> 
+                    >> Untill Queue is empty loop trough each level 
+                    >> at end of each level based on x & y determine the flow
+    */
+
+    class Pair{
+        TreeNode parent;
+        TreeNode child;
+        Pair(TreeNode parent, TreeNode child){
+            this.parent = parent;
+            this.child = child;
+        }
+    }
+
+    public boolean isCousins(TreeNode root, int x, int y) {
+        Queue<Pair> queue = new LinkedList<>();
+        boolean x_exists = false;
+        boolean y_exists = false;
+        int x_root = root.val;
+        int y_root = root.val;
+        if(root.left!= null) queue.add(new Pair(root,root.left));
+        if(root.right!= null) queue.add(new Pair(root,root.right));
+        //capture the size of the queue to be traversed for that level 
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            while(size > 0){
+                Pair current = queue.remove();
+                if(current.child.val == x){
+                    x_exists = true;
+                    x_root = current.parent.val;
+                }
+                if(current.child.val == y){
+                    y_exists = true;
+                    y_root = current.parent.val;
+                }
+                if(current.child.left != null) queue.add(new Pair(current.child,current.child.left));
+                if(current.child.right != null) queue.add(new Pair(current.child,current.child.right));
+                size--;
+            }
+            // both values are identified
+            if(x_exists && y_exists){
+                if( x_root != y_root) return true;
+                    else return false;
+            }
+            if(x_exists || y_exists) return false;
+        }
+        return false;
+    }
+}
