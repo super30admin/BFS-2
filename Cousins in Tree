@@ -1,0 +1,67 @@
+//We do a level order traversal using two queues—one for nodes and one for parents.
+// If we find both x and y on the same level, we check if their parents are different.
+// If only one is found in a level, return false because cousins must be on the same level.
+
+// time o(n)
+// space o(n)
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        Queue<TreeNode> q = new LinkedList<>();
+        Queue<TreeNode> parentQ = new LinkedList<>();
+
+        q.add(root);
+        parentQ.add(null);
+
+        boolean x_found = false, y_found = false;
+        TreeNode x_parent = null, y_parent = null;
+
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i=0; i<size; i++){
+                TreeNode curr = q.poll();
+                TreeNode parent = parentQ.poll();
+
+                if(curr.val == x){
+                    x_found = true;
+                    x_parent = parent;
+                }
+
+                if(curr.val == y){
+                    y_found = true;
+                    y_parent = parent;
+                }
+
+                if(curr.left != null){
+                    q.add(curr.left);
+                    parentQ.add(curr);
+                }
+
+                if(curr.right != null){
+                    q.add(curr.right);
+                    parentQ.add(curr);
+                }
+            }
+            if(x_found && y_found) return x_parent != y_parent;
+            if(x_found || y_found) return false;
+        }
+
+        return false;
+    }
+}
