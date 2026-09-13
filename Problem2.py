@@ -1,5 +1,5 @@
 # Time Complexity : O(n)
-# Space Complexity : O(n) in the worst case (O(h) for stack data structures)
+# Space Complexity : O(n)
 # Did this code successfully run on Leetcode : Yes
 class Solution:
     def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
